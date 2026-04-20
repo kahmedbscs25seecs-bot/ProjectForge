@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.HealShopController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="8" bottom="8" left="20" right="20"/>
+            </padding>
+            
+            <Label text="HEALING SHOP" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="12" alignment="CENTER">
+                <Label text="HP:" styleClass="text-label"/>
+                <Label fx:id="hpLabel" text="60/60" styleClass="green-text"/>
+                <Label text="Coins:" styleClass="text-label"/>
+                <Label fx:id="coinsLabel" text="0" styleClass="gold-text"/>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="12" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" left="30" right="30"/>
+            </padding>
+            
+            <Label text="BUY POTIONS" styleClass="title-label"/>
+            
+            <VBox spacing="10" alignment="CENTER" fx:id="potionsContainer"/>
+            
+            <Label text="YOUR POTIONS" styleClass="title-label"/>
+            <VBox spacing="8" alignment="Center" fx:id="userPotionsContainer"/>
+            
+            <Button text="FREE DAILY HEAL" styleClass="primary-button" onAction="#useDailyHeal"/>
+            <Label fx:id="dailyHealLabel" text="Available" styleClass="cyan-text"/>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.BattleController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="8" bottom="8" left="20" right="20"/>
+            </padding>
+            
+            <VBox spacing="2">
+                <Label fx:id="usernameLabel" text="Username" styleClass="title-label"/>
+                <Label fx:id="statsLabel" text="ATK:10 | DEF:10 | LCK:5" styleClass="text-label"/>
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="15" alignment="CENTER">
+                <Label text="HP:" styleClass="text-label"/>
+                <Label fx:id="hpLabel" text="60/60" styleClass="green-text"/>
+                <ProgressBar fx:id="hpBar" prefWidth="80" styleClass="hp-bar"/>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="8" alignment="CENTER">
+                <Button text="Heal" styleClass="secondary-button" onAction="#openHealShop"/>
+                <Button text="Def" styleClass="secondary-button" onAction="#openDefenseSetup"/>
+                <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="15" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" left="30" right="30" bottom="15"/>
+            </padding>
+            
+            <Label text="BATTLE ARENA" styleClass="title-label"/>
+            
+            <HBox spacing="25" alignment="CENTER">
+                <VBox spacing="5" alignment="CENTER">
+                    <Label text="YOU" styleClass="title-label"/>
+                    <StackPane>
+                        <Rectangle width="50" height="50" fill="#4CAF50" arcWidth="10" arcHeight="10"/>
+                        <Label text="Lv.1" styleClass="text-label"/>
+                    </StackPane>
+                    <Label fx:id="playerHpLabel" text="HP: 60/60" styleClass="text-label"/>
+                    <ProgressBar fx:id="playerHpBar" prefWidth="70" styleClass="hp-bar"/>
+                </VBox>
+                
+                <Label text="VS" styleClass="title-label" style="-fx-font-size: 18;"/>
+                
+                <VBox spacing="5" alignment="CENTER">
+                    <Label text="OPPONENT" styleClass="title-label"/>
+                    <StackPane>
+                        <Rectangle width="50" height="50" fill="#F44336" arcWidth="10" arcHeight="10"/>
+                        <Label fx:id="opponentLevelLabel" text="Lv.1" styleClass="text-label"/>
+                    </StackPane>
+                    <Label fx:id="opponentHpLabel" text="HP: 60/60" styleClass="text-label"/>
+                    <ProgressBar fx:id="opponentHpBar" prefWidth="70" styleClass="hp-bar"/>
+                </VBox>
+            </HBox>
+            
+            <Label fx:id="opponentNameLabel" text="Waiting for opponent..." styleClass="text-label"/>
+            
+            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
+                <Label text="BATTLE LOG" styleClass="text-label" style="-fx-font-size: 11;"/>
+                <ScrollPane prefHeight="60" styleClass="scroll-pane" prefWidth="330">
+                    <VBox fx:id="battleLogContainer" spacing="1"/>
+                </ScrollPane>
+            </VBox>
+            
+            <HBox spacing="12" alignment="CENTER">
+                <VBox spacing="2" alignment="CENTER">
+                    <Button text="SWORD" styleClass="primary-button" prefWidth="80" onAction="#swordAttack"/>
+                    <Label text="Constant" styleClass="small-label"/>
+                </VBox>
+                <VBox spacing="2" alignment="CENTER">
+                    <Button text="WAND" styleClass="secondary-button" prefWidth="80" onAction="#wandAttack"/>
+                    <Label text="Variable" styleClass="small-label"/>
+                </VBox>
+            </HBox>
+            
+            <Button fx:id="findOpponentBtn" text="FIND OPPONENT" styleClass="primary-button" prefWidth="160" onAction="#findOpponent"/>
+            <Button fx:id="nextTurnBtn" text="NEXT TURN" styleClass="primary-button" prefWidth="160" onAction="#nextTurn" visible="false"/>
+            <Button fx:id="newBattleBtn" text="NEW BATTLE" styleClass="primary-button" prefWidth="160" onAction="#newBattle" visible="false"/>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.QuestsController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" bottom="15" left="20" right="20"/>
+            </padding>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Label text="QUESTS" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="20" alignment="CENTER">
+                <Label text="Coins: " styleClass="text-label"/>
+                <Label fx:id="coinsLabel" text="0" styleClass="gold-text"/>
+            </HBox>
+            
+            <Button text="AI Generate" styleClass="secondary-button" onAction="#openAIGenerate"/>
+            <Button text="Inventory" styleClass="secondary-button" onAction="#openInventory"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox styleClass="stats-panel" spacing="15" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+            <Label text="CURRENT MODE" styleClass="subtitle-label"/>
+            <Label fx:id="modeNameLabel" text="None" styleClass="cyan-text"/>
+            <Label fx:id="modeDescLabel" text="" styleClass="text-label" wrapText="true"/>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+            <VBox spacing="30" alignment="TOP_CENTER">
+                <padding>
+                    <Insets top="30" left="30" right="30"/>
+                </padding>
+                
+                <!-- Active Quests Section -->
+                <VBox spacing="10">
+                    <Label text="ACTIVE QUESTS" styleClass="subtitle-label"/>
+                    <VBox fx:id="activeQuestContainer" spacing="15" alignment="TOP_CENTER"/>
+                </VBox>
+                
+                <!-- Available Quests Section -->
+                <VBox spacing="10">
+                    <Label text="AVAILABLE QUESTS" styleClass="subtitle-label"/>
+                    <VBox fx:id="availableQuestContainer" spacing="15" alignment="TOP_CENTER"/>
+                </VBox>
+                
+                <!-- Completed Quests Section -->
+                <VBox spacing="10">
+                    <Label text="COMPLETED QUESTS" styleClass="subtitle-label"/>
+                    <VBox fx:id="completedQuestContainer" spacing="15" alignment="TOP_CENTER"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

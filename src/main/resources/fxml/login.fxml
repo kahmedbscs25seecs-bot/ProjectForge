@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.LoginController" styleClass="root">
+    <center>
+        <VBox alignment="CENTER" spacing="25" maxWidth="400">
+            <!-- Logo -->
+            <Label text="⚔" styleClass="logo-icon-small"/>
+            
+            <!-- Title -->
+            <Label text="FORGE" styleClass="title-label"/>
+            
+            <!-- Tagline -->
+            <Label text="Forge Your Destiny" styleClass="login-tagline"/>
+            
+            <VBox spacing="15" maxWidth="350">
+                <Label text="Username" styleClass="text-label"/>
+                <TextField fx:id="usernameField" promptText="Enter username" styleClass="text-input"/>
+                
+                <Label text="Password" styleClass="text-label"/>
+                <PasswordField fx:id="passwordField" promptText="Enter password" styleClass="text-input"/>
+                
+                <Label fx:id="errorLabel" text="" styleClass="error-label" managed="false" visible="false"/>
+                
+                <VBox spacing="12">
+                    <Button text="ENTER" styleClass="neon-button" onAction="#handleLogin" maxWidth="Infinity"/>
+                    <Button text="CREATE ACCOUNT" styleClass="secondary-button" onAction="#handleRegister" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <Label text="v1.0.0" styleClass="text-label" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="30"/>
+            </BorderPane.margin>
+        </Label>
+    </bottom>
+</BorderPane>

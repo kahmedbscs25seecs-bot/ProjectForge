@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.AchievementsController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" bottom="15" left="20" right="20"/>
+            </padding>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Label text="ACHIEVEMENTS" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="30" left="30" right="30"/>
+            </padding>
+            
+            <Label text="UNLOCKED ACHIEVEMENTS" styleClass="subtitle-label"/>
+            
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+                <VBox fx:id="unlockedContainer" spacing="15" alignment="TOP_CENTER"/>
+            </ScrollPane>
+            
+            <Label text="ALL ACHIEVEMENTS" styleClass="subtitle-label"/>
+            
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+                <VBox fx:id="allContainer" spacing="15" alignment="TOP_CENTER"/>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

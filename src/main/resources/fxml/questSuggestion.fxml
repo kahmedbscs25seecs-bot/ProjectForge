@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.QuestSuggestionController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" bottom="15" left="20" right="20"/>
+            </padding>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Label text="AI GENERATED QUESTS" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Button text="Regenerate" styleClass="secondary-button" onAction="#regenerate"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+            <VBox spacing="20" alignment="TOP_CENTER">
+                <padding>
+                    <Insets top="30" left="30" right="30"/>
+                </padding>
+                
+                <Label fx:id="statusLabel" text="Review these AI-generated quests:" styleClass="text-label"/>
+                
+                <VBox fx:id="suggestionsContainer" spacing="15" alignment="TOP_CENTER"/>
+                
+                <HBox spacing="20" alignment="CENTER">
+                    <Button text="Approve All" styleClass="neon-button" onAction="#approveAll"/>
+                    <Button text="Cancel" styleClass="secondary-button" onAction="#goBack"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

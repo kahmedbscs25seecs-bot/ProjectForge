@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.MainController" styleClass="root">
+
+    <top>
+        <VBox spacing="0">
+            <!-- Header Bar -->
+            <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="10" bottom="10" left="20" right="20"/>
+                </padding>
+                
+                <!-- Left: Username & Level -->
+                <VBox spacing="2" alignment="CENTER_LEFT">
+                    <Label fx:id="usernameLabel" text="Username" styleClass="title-label"/>
+                    <Label fx:id="levelLabel" text="Level 1" styleClass="text-label"/>
+                </VBox>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <!-- Center: HP & XP Bars Side by Side -->
+                <HBox spacing="25" alignment="CENTER">
+                    <VBox spacing="2" alignment="CENTER">
+                        <HBox spacing="5" alignment="CENTER">
+                            <Label text="HP: " styleClass="text-label"/>
+                            <Label fx:id="hpLabel" text="60 / 60" styleClass="green-text"/>
+                        </HBox>
+                        <ProgressBar fx:id="hpBar" prefWidth="100" styleClass="hp-bar"/>
+                    </VBox>
+                    
+                    <VBox spacing="2" alignment="CENTER">
+                        <HBox spacing="5" alignment="CENTER">
+                            <Label text="XP: " styleClass="text-label"/>
+                            <Label fx:id="xpLabel" text="0 / 100" styleClass="cyan-text"/>
+                        </HBox>
+                        <ProgressBar fx:id="xpBar" prefWidth="100" styleClass="xp-bar"/>
+                    </VBox>
+                </HBox>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <!-- Right Stats: Coins & Rank -->
+                <HBox spacing="20" alignment="CENTER">
+                    <VBox spacing="2" alignment="CENTER">
+                        <Label text="Coins" styleClass="small-label"/>
+                        <Label fx:id="coinsLabel" text="0" styleClass="gold-text"/>
+                    </VBox>
+                    <VBox spacing="2" alignment="CENTER">
+                        <Label text="Rank" styleClass="small-label"/>
+                        <Label fx:id="rankLabel" text="100" styleClass="purple-text"/>
+                    </VBox>
+                </HBox>
+                
+                <Region HBox.hgrow="ALWAYS"/>
+                
+                <!-- Right Buttons Grouped -->
+                <VBox spacing="5" alignment="CENTER_RIGHT">
+                    <!-- Top Row: Primary Actions -->
+                    <HBox spacing="8" alignment="CENTER">
+                        <Button text="Battle" styleClass="primary-button" onAction="#openBattle"/>
+                        <Button text="Inv" styleClass="secondary-button" onAction="#openInventory"/>
+                        <Button text="Quests" styleClass="secondary-button" onAction="#openAllActiveQuests"/>
+                    </HBox>
+                    <!-- Bottom Row: Social & Close -->
+                    <HBox spacing="8" alignment="CENTER">
+                        <Button text="Leaderboard" styleClass="secondary-button" onAction="#openLeaderboard"/>
+                        <Button text="Badges" styleClass="secondary-button" onAction="#openAchievements"/>
+                        <Button text="X" styleClass="close-button" onAction="#logout"/>
+                    </HBox>
+                </VBox>
+            </HBox>
+            
+            <!-- Mode Switcher -->
+            <HBox styleClass="mode-switcher" alignment="CENTER_LEFT" spacing="15">
+                <padding>
+                    <Insets top="8" bottom="8" left="20" right="20"/>
+                </padding>
+                <Label text="Active Modes:" styleClass="text-label"/>
+                <HBox fx:id="activeModesContainer" spacing="10"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="25" left="40" right="40"/>
+            </padding>
+            
+            <Label text="SELECT YOUR MODE" styleClass="title-label"/>
+            
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true" prefHeight="400">
+                <VBox fx:id="modeContainer" spacing="20" alignment="TOP_CENTER">
+                    <padding>
+                        <Insets top="10" bottom="10"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+            
+            <Button text="+ Create Custom Mode" styleClass="secondary-button" onAction="#createCustomMode"/>
+        </VBox>
+    </center>
+</BorderPane>

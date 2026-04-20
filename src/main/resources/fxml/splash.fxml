@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.SplashController" styleClass="root">
+    <StackPane styleClass="splash-background" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="30">
+            <!-- Logo Area -->
+            <Label text="⚔" styleClass="logo-icon"/>
+            
+            <!-- Game Title -->
+            <Label text="FORGE" styleClass="splash-title"/>
+            
+            <!-- Tagline -->
+            <Label text="Forge Your Destiny" styleClass="splash-tagline"/>
+            
+            <!-- Loading indicator -->
+            <ProgressBar fx:id="loadingBar" prefWidth="300" styleClass="splash-progress"/>
+            
+            <Label fx:id="loadingLabel" text="Loading..." styleClass="text-label"/>
+        </VBox>
+    </StackPane>
+</StackPane>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.CreateModeController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" bottom="15" left="20" right="20"/>
+            </padding>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Label text="CREATE CUSTOM MODE" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+            <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="30" left="30" right="30"/>
+                </padding>
+                
+                <VBox spacing="15" maxWidth="500">
+                    <Label text="Mode Name" styleClass="text-label"/>
+                    <TextField fx:id="modeNameField" promptText="Enter mode name" styleClass="text-input"/>
+                    
+                    <Label text="Description" styleClass="text-label"/>
+                    <TextArea fx:id="modeDescArea" promptText="Describe your mode" styleClass="text-input" wrapText="true" prefRowCount="3"/>
+                </VBox>
+                
+                <Label text="QUESTS" styleClass="subtitle-label"/>
+                
+                <VBox fx:id="questInputsContainer" spacing="15" alignment="TOP_CENTER"/>
+                
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="+ Add Quest" styleClass="secondary-button" onAction="#addQuestInput"/>
+                    <Button text="AI Assist" styleClass="secondary-button" onAction="#openAIAssist"/>
+                </HBox>
+                
+                <Button text="CREATE MODE" styleClass="neon-button" onAction="#createMode"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

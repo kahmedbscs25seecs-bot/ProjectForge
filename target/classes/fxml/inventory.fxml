@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.InventoryController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="15" bottom="15" left="20" right="20"/>
+            </padding>
+            
+            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <Label text="INVENTORY" styleClass="title-label"/>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="20" alignment="CENTER">
+                <Label text="Coins: " styleClass="text-label"/>
+                <Label fx:id="coinsLabel" text="0" styleClass="gold-text"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox styleClass="stats-panel" spacing="15" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" bottom="20" left="20" right="20"/>
+            </padding>
+            <Label text="YOUR CHARACTER" styleClass="subtitle-label"/>
+            <VBox fx:id="characterPanel" spacing="10" alignment="CENTER"/>
+            <Label text="EQUIPMENT" styleClass="subtitle-label"/>
+            <HBox fx:id="equipmentSlotsContainer" spacing="15" alignment="CENTER"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="30" left="30" right="30"/>
+            </padding>
+            
+            <Label text="YOUR ITEMS" styleClass="subtitle-label"/>
+            
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+                <VBox fx:id="inventoryContainer" spacing="15" alignment="TOP_CENTER"/>
+            </ScrollPane>
+            
+            <Label text="AVAILABLE TO UNLOCK" styleClass="subtitle-label"/>
+            
+            <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="scroll-pane" fitToWidth="true">
+                <VBox fx:id="availableContainer" spacing="15" alignment="TOP_CENTER"/>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
