@@ -6,10 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="3ff30e29-ec80-4dc8-86e6-e61665629108" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/util/DatabaseUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/controller/BattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/controller/BattleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/model/BattleAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/model/BattleAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/service/BattleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/service/BattleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/service/HarryPotterBattleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/service/HarryPotterBattleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/achievements.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/achievements.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/allActiveQuests.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/allActiveQuests.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/battle.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/battle.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/createMode.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/createMode.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/defenseSetup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/defenseSetup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/inventory.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/inventory.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/leaderboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/leaderboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/questSuggestion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/questSuggestion.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/quests.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/quests.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/splash.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/splash.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

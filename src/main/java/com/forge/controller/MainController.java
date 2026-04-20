@@ -5,6 +5,7 @@ import com.forge.model.User;
 import com.forge.service.ModeService;
 import com.forge.service.UserService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -104,19 +105,52 @@ public class MainController {
 
     private VBox createModeCard(Mode mode) {
         VBox card = new VBox(10);
-        card.getStyleClass().add("mode-card");
+        
+        // Apply mode-specific background based on mode name
+        String modeName = mode.getName().toLowerCase();
+        if (modeName.contains("study") || modeName.contains("learn")) {
+            card.getStyleClass().add("mode-card-study");
+        } else if (modeName.contains("body") || modeName.contains("gym") || modeName.contains("fitness")) {
+            card.getStyleClass().add("mode-card-gym");
+        } else if (modeName.contains("social") || modeName.contains("introvert") || modeName.contains("talk")) {
+            card.getStyleClass().add("mode-card-social");
+        } else if (modeName.contains("creative") || modeName.contains("art")) {
+            card.getStyleClass().add("mode-card-creative");
+        } else if (modeName.contains("mindful") || modeName.contains("meditation") || modeName.contains("calm")) {
+            card.getStyleClass().add("mode-card-mindful");
+        } else if (mode.isCustom()) {
+            card.getStyleClass().add("mode-card-custom");
+        } else {
+            card.getStyleClass().add("mode-card");
+        }
+        
         card.setPadding(new Insets(20));
         card.setMinWidth(250);
         card.setMaxWidth(300);
         
         Label nameLabel = new Label(mode.getName());
-        nameLabel.getStyleClass().add("subtitle-label");
+        
+        // Apply mode-specific title color
+        if (modeName.contains("study") || modeName.contains("learn")) {
+            nameLabel.getStyleClass().add("mode-title-study");
+        } else if (modeName.contains("body") || modeName.contains("gym") || modeName.contains("fitness")) {
+            nameLabel.getStyleClass().add("mode-title-gym");
+        } else if (modeName.contains("social") || modeName.contains("introvert") || modeName.contains("talk")) {
+            nameLabel.getStyleClass().add("mode-title-social");
+        } else if (modeName.contains("creative") || modeName.contains("art")) {
+            nameLabel.getStyleClass().add("mode-title-creative");
+        } else if (modeName.contains("mindful") || modeName.contains("meditation") || modeName.contains("calm")) {
+            nameLabel.getStyleClass().add("mode-title-mindful");
+        } else {
+            nameLabel.getStyleClass().add("subtitle-label");
+        }
         
         Label descLabel = new Label(mode.getDescription());
-        descLabel.getStyleClass().add("text-label");
+        descLabel.setStyle("-fx-text-fill: #ccc; -fx-font-size: 13px;");
+        descLabel.setWrapText(true);
         
         Label levelLabel = new Label("Unlocks at Level " + mode.getUnlockLevel());
-        levelLabel.getStyleClass().add("text-label");
+        levelLabel.setStyle("-fx-text-fill: #888; -fx-font-size: 12px;");
         
         boolean isSelected = selectedModes.contains(mode);
         
@@ -227,7 +261,7 @@ public class MainController {
             controller.initData(currentUser, selectedMode);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -243,7 +277,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -259,7 +293,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -275,7 +309,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -291,7 +325,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -313,7 +347,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -329,7 +363,7 @@ public class MainController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }

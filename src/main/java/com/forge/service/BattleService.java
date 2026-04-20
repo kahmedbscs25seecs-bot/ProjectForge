@@ -70,7 +70,7 @@ public class BattleService {
 
         BattleAction action = new BattleAction(
             battle.getId(), attackerId, defenderId, roundNumber,
-            attackType, defender.getDefenseType(), finalDamage, damageReduced, turnOrder
+            0, attackType, defender.getDefenseType(), "", finalDamage, damageReduced, turnOrder, true
         );
         battleRepository.addAction(action);
 

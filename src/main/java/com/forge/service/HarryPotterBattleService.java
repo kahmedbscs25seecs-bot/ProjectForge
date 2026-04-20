@@ -17,7 +17,7 @@ public class HarryPotterBattleService {
 
     public HarryPotterBattleService() {
         this.battleRepository = new BattleRepository();
-        this.userRepository = userRepository;
+        this.userRepository = new UserRepository();
         this.spellRepository = new SpellRepository();
         this.wandRepository = new WandRepository();
         this.random = new Random();

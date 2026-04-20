@@ -4,21 +4,21 @@
 <?import javafx.geometry.Pos?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.BattleController" styleClass="root">
 
     <top>
         <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="8" bottom="8" left="20" right="20"/>
+                <Insets top="8" bottom="8" left="16" right="16"/>
             </padding>
             
             <VBox spacing="2">
                 <Label fx:id="usernameLabel" text="Username" styleClass="title-label"/>
-                <Label fx:id="statsLabel" text="ATK:10 | DEF:10 | LCK:5" styleClass="text-label"/>
+                <Label fx:id="statsLabel" text="ATK:10 | DEF:10 | LCK:5 | 🪄 Wand" styleClass="text-label"/>
             </VBox>
             
             <Region HBox.hgrow="ALWAYS"/>
@@ -32,68 +32,112 @@
             <Region HBox.hgrow="ALWAYS"/>
             
             <HBox spacing="8" alignment="CENTER">
-                <Button text="Heal" styleClass="pill-button" onAction="#openHealShop"/>
-                <Button text="Def" styleClass="pill-button" onAction="#openDefenseSetup"/>
-                <Button text="Back" styleClass="pill-button" onAction="#goBack"/>
+                <Button text="🧪" styleClass="pill-button" onAction="#openHealShop"/>
+                <Button text="🛡️" styleClass="pill-button" onAction="#openDefenseSetup"/>
+                <Button text="⬅" styleClass="pill-button" onAction="#goBack"/>
             </HBox>
         </HBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="15" BorderPane.alignment="CENTER">
+        <VBox spacing="12" alignment="CENTER" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="15" left="30" right="30" bottom="15"/>
+                <Insets top="10" left="25" right="25" bottom="10"/>
             </padding>
             
-            <Label text="BATTLE ARENA" styleClass="title-label"/>
-            
-            <HBox spacing="25" alignment="CENTER">
+            <Label text="⚔️ DUEL ARENA ⚔️" styleClass="title-label"/>
+
+            <!-- Character Display Area -->
+            <HBox spacing="30" alignment="CENTER">
+                <!-- Player Character -->
                 <VBox spacing="5" alignment="CENTER">
-                    <Label text="YOU" styleClass="title-label"/>
+                    <Label text="YOU" styleClass="cyan-text"/>
                     <StackPane>
-                        <Rectangle width="50" height="50" fill="#4CAF50" arcWidth="10" arcHeight="10"/>
-                        <Label text="Lv.1" styleClass="text-label"/>
+                        <Rectangle width="60" height="80" fill="#1a472a" arcWidth="8" arcHeight="8"/>
+                        <Rectangle x="5" y="5" width="50" height="15" fill="#333" arcWidth="3" arcHeight="3"/>
+                        <Rectangle x="15" y="25" width="30" height="35" fill="#2e7d32" arcWidth="3" arcHeight="3"/>
+                        <Rectangle x="10" y="60" width="15" height="18" fill="#1b5e20" arcWidth="2" arcHeight="2"/>
+                        <Rectangle x="35" y="60" width="15" height="18" fill="#1b5e20" arcWidth="2" arcHeight="2"/>
                     </StackPane>
                     <Label fx:id="playerHpLabel" text="HP: 60/60" styleClass="text-label"/>
-                    <ProgressBar fx:id="playerHpBar" prefWidth="70" styleClass="hp-bar"/>
+                    <ProgressBar fx:id="playerHpBar" prefWidth="80" styleClass="hp-bar"/>
+                    <Label fx:id="playerEquipmentLabel" text="⚔️" styleClass="small-label"/>
                 </VBox>
                 
-                <Label text="VS" styleClass="title-label" style="-fx-font-size: 18;"/>
+                <VBox spacing="3" alignment="CENTER">
+                    <Label text="VS" styleClass="title-label" style="-fx-font-size: 24;"/>
+                    <Label text="⚡" styleClass="title-label" style="-fx-font-size: 30;"/>
+                </VBox>
                 
+                <!-- Opponent Character -->
                 <VBox spacing="5" alignment="CENTER">
-                    <Label text="OPPONENT" styleClass="title-label"/>
+                    <Label text="OPPONENT" styleClass="magenta-text"/>
                     <StackPane>
-                        <Rectangle width="50" height="50" fill="#F44336" arcWidth="10" arcHeight="10"/>
-                        <Label fx:id="opponentLevelLabel" text="Lv.1" styleClass="text-label"/>
+                        <Rectangle width="60" height="80" fill="#4a1a1a" arcWidth="8" arcHeight="8"/>
+                        <Rectangle x="5" y="5" width="50" height="15" fill="#333" arcWidth="3" arcHeight="3"/>
+                        <Rectangle x="15" y="25" width="30" height="35" fill="#c62828" arcWidth="3" arcHeight="3"/>
+                        <Rectangle x="10" y="60" width="15" height="18" fill="#b71c1c" arcWidth="2" arcHeight="2"/>
+                        <Rectangle x="35" y="60" width="15" height="18" fill="#b71c1c" arcWidth="2" arcHeight="2"/>
                     </StackPane>
                     <Label fx:id="opponentHpLabel" text="HP: 60/60" styleClass="text-label"/>
-                    <ProgressBar fx:id="opponentHpBar" prefWidth="70" styleClass="hp-bar"/>
+                    <ProgressBar fx:id="opponentHpBar" prefWidth="80" styleClass="hp-bar"/>
+                    <Label fx:id="opponentEquipmentLabel" text="🪄" styleClass="small-label"/>
                 </VBox>
             </HBox>
-            
-            <Label fx:id="opponentNameLabel" text="Waiting for opponent..." styleClass="text-label"/>
-            
-            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
-                <Label text="BATTLE LOG" styleClass="text-label" style="-fx-font-size: 11;"/>
-                <ScrollPane prefHeight="60" styleClass="scroll-pane" prefWidth="330">
-                    <VBox fx:id="battleLogContainer" spacing="1"/>
+
+            <!-- Opponent Info -->
+            <Label fx:id="opponentNameLabel" text="Find an opponent to begin your duel!" styleClass="text-label"/>
+
+            <!-- Opponent Analysis Panel -->
+            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="400" visible="true" fx:id="analysisPanel">
+                <Label text="📊 OPPONENT ANALYSIS" styleClass="text-label" style="-fx-font-size: 11;"/>
+                <ScrollPane prefHeight="60" prefWidth="380" styleClass="scroll-pane">
+                    <TextFlow fx:id="analysisText"/>
                 </ScrollPane>
             </VBox>
-            
-            <HBox fx:id="attackButtonsBox" spacing="12" alignment="CENTER" visible="false">
-                <VBox spacing="2" alignment="CENTER">
-                    <Button text="SWORD" styleClass="pill-battle" prefWidth="80" onAction="#swordAttack"/>
-                    <Label text="Constant" styleClass="small-label"/>
-                </VBox>
-                <VBox spacing="2" alignment="CENTER">
-                    <Button text="WAND" styleClass="pill-button" prefWidth="80" onAction="#wandAttack"/>
-                    <Label text="Variable" styleClass="small-label"/>
-                </VBox>
+
+            <!-- Spell Selection -->
+            <Label text="✨ CHOOSE YOUR SPELL ✨" styleClass="title-label"/>
+
+            <HBox fx:id="attackButtonsBox" spacing="10" alignment="CENTER" visible="false">
+                <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" prefWidth="500" prefHeight="100">
+                    <HBox spacing="8" alignment="CENTER">
+                        <VBox spacing="2" alignment="CENTER" style="-fx-background-color: #2a1a1a; -fx-padding: 8; -fx-background-radius: 5;">
+                            <Button text="🔥 Incendio" styleClass="pill-battle" onAction="#castSpell1"/>
+                            <Label text="30 DMG | 90% ACC" styleClass="small-label"/>
+                        </VBox>
+                        <VBox spacing="2" alignment="CENTER" style="-fx-background-color: #1a2a3a; -fx-padding: 8; -fx-background-radius: 5;">
+                            <Button text="💧 Aguamenti" styleClass="pill-button" onAction="#castSpell2"/>
+                            <Label text="25 DMG | 95% ACC" styleClass="small-label"/>
+                        </VBox>
+                        <VBox spacing="2" alignment="CENTER" style="-fx-background-color: #3a1a3a; -fx-padding: 8; -fx-background-radius: 5;">
+                            <Button text="💫 Stupefy" styleClass="pill-button" onAction="#castSpell3"/>
+                            <Label text="40 DMG | STUN" styleClass="small-label"/>
+                        </VBox>
+                        <VBox spacing="2" alignment="CENTER" style="-fx-background-color: #1a3a1a; -fx-padding: 8; -fx-background-radius: 5;">
+                            <Button text="🛡️ Protego" styleClass="pill-button" onAction="#castSpell4"/>
+                            <Label text="SHIELD | +20 DEF" styleClass="small-label"/>
+                        </VBox>
+                        <VBox spacing="2" alignment="CENTER" style="-fx-background-color: #4a2a1a; -fx-padding: 8; -fx-background-radius: 5;">
+                            <Button text="🔮 Expelliarmus" styleClass="pill-button" onAction="#castSpell5"/>
+                            <Label text="25 DMG | DISARM" styleClass="small-label"/>
+                        </VBox>
+                    </HBox>
+                </ScrollPane>
             </HBox>
-            
-            <Button fx:id="findOpponentBtn" text="FIND OPPONENT" styleClass="pill-battle" prefWidth="160" onAction="#findOpponent"/>
-            <Button fx:id="nextTurnBtn" text="NEXT TURN" styleClass="pill-battle" prefWidth="160" onAction="#nextTurn" visible="false"/>
-            <Button fx:id="newBattleBtn" text="NEW BATTLE" styleClass="pill-battle" prefWidth="160" onAction="#newBattle" visible="false"/>
+
+            <!-- Battle Log -->
+            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="400">
+                <Label text="📜 BATTLE LOG" styleClass="text-label" style="-fx-font-size: 11;"/>
+                <ScrollPane prefHeight="70" styleClass="scroll-pane" prefWidth="380">
+                    <VBox fx:id="battleLogContainer" spacing="2"/>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Action Buttons -->
+            <Button fx:id="findOpponentBtn" text="🔍 FIND OPPONENT" styleClass="pill-battle" prefWidth="200" onAction="#findOpponent"/>
+            <Button fx:id="nextTurnBtn" text="🎯 CAST SPELL" styleClass="pill-battle" prefWidth="200" onAction="#nextTurn" visible="false"/>
+            <Button fx:id="newBattleBtn" text="⚔️ NEW DUEL" styleClass="pill-battle" prefWidth="200" onAction="#newBattle" visible="false"/>
         </VBox>
     </center>
 </BorderPane>

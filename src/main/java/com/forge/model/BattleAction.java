@@ -83,4 +83,10 @@ public class BattleAction {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public String getAttackType() { return spellName != null ? spellName : ""; }
+    public void setAttackType(String attackType) { this.spellName = attackType; }
+
+    public String getDefenseType() { return spellType != null ? spellType : ""; }
+    public void setDefenseType(String defenseType) { this.spellType = defenseType; }
 }

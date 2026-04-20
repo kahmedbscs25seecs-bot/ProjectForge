@@ -3,22 +3,24 @@ package com.forge.controller;
 import com.forge.model.Battle;
 import com.forge.model.BattleAction;
 import com.forge.model.User;
+import com.forge.model.Spell;
 import com.forge.service.BattleService;
+import com.forge.service.HarryPotterBattleService;
 import com.forge.service.UserService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.text.TextFlow;
+import javafx.scene.text.Text;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -53,6 +55,8 @@ public class BattleController {
     @FXML
     private VBox battleLogContainer;
     @FXML
+    private TextFlow analysisText;
+    @FXML
     private Button findOpponentBtn;
     @FXML
     private HBox attackButtonsBox;
@@ -61,7 +65,7 @@ public class BattleController {
     @FXML
     private Button newBattleBtn;
 
-    private final BattleService battleService = new BattleService();
+    private final HarryPotterBattleService battleService = new HarryPotterBattleService();
     private final UserService userService = new UserService();
     private User currentUser;
     private User opponent;
@@ -100,17 +104,25 @@ public class BattleController {
             }
             
             opponent = opponentOpt.get();
-            opponentNameLabel.setText(opponent.getUsername() + " (Lv." + opponent.getLevel() + ")");
-            opponentLevelLabel.setText("Lv." + opponent.getLevel());
+            opponentNameLabel.setText("⚔️ " + opponent.getUsername());
             opponentHpLabel.setText("HP: " + opponent.getCurrentHp() + "/" + opponent.getMaxHp());
             opponentHpBar.setProgress((double) opponent.getCurrentHp() / opponent.getMaxHp());
+            
+            if (analysisText != null) {
+                analysisText.getChildren().clear();
+                String analysis = battleService.getOpponentAnalysis(opponent);
+                Text analysisTextNode = new Text(analysis);
+                analysisTextNode.setStyle("-fx-fill: #b0b0b0; -fx-font-size: 12;");
+                analysisText.getChildren().add(analysisTextNode);
+            }
             
             currentBattle = battleService.startBattle(currentUser.getId(), opponent.getId());
             battleActions.clear();
             battleLogContainer.getChildren().clear();
             
-            addBattleLog("Battle started vs " + opponent.getUsername() + "!");
+            addBattleLog("⚔️ Duel started vs " + opponent.getUsername() + "!");
             addBattleLog("Your HP: " + currentUser.getCurrentHp() + " | Enemy HP: " + opponent.getCurrentHp());
+            addBattleLog("Choose your spell wisely based on the analysis!");
             
             findOpponentBtn.setVisible(false);
             attackButtonsBox.setVisible(true);
@@ -123,29 +135,69 @@ public class BattleController {
     }
 
     @FXML
-    private void swordAttack() {
-        executeAttack(BattleService.ATTACK_SWORD);
+    private void castSpell1() {
+        castSpell("Incendio", 1);
     }
 
     @FXML
-    private void wandAttack() {
-        executeAttack(BattleService.ATTACK_WAND);
+    private void castSpell2() {
+        castSpell("Aguamenti", 2);
     }
 
-    private void executeAttack(String attackType) {
+    @FXML
+    private void castSpell3() {
+        castSpell("Stupefy", 3);
+    }
+
+    @FXML
+    private void castSpell4() {
+        castSpell("Protego", 6);
+    }
+
+    @FXML
+    private void castSpell5() {
+        castSpell("Expelliarmus", 4);
+    }
+
+    private void castSpell(String spellName, int spellId) {
         try {
-            BattleAction action = battleService.executeTurn(currentBattle, attackType, currentUser.getId());
+            Spell spell = battleService.getAllSpells().stream()
+                .filter(s -> s.getId() == spellId)
+                .findFirst()
+                .orElse(null);
+            
+            if (spell == null || opponent == null) {
+                addBattleLog("No opponent found!");
+                return;
+            }
+            
+            BattleAction action = battleService.castSpell(currentBattle, spell, currentUser.getId(), opponent.getId());
             battleActions.add(action);
             
-            int damage = action.getDamageDealt();
-            int reduced = action.getDamageReduced();
-            
-            addBattleLog("You used " + attackType + "!");
-            addBattleLog("Dealt " + damage + " damage (Reduced by " + reduced + ")");
-            
-            int newOpponentHp = currentBattle.getDefenderHpBefore();
-            opponentHpLabel.setText("HP: " + Math.max(0, newOpponentHp) + "/" + opponent.getMaxHp());
-            opponentHpBar.setProgress(Math.max(0, (double) newOpponentHp / opponent.getMaxHp()));
+            if (action.isHit()) {
+                int damage = action.getDamageDealt();
+                int reduced = action.getDamageReduced();
+                
+                String logMessage = "You cast " + spell.getName() + "! ";
+                if (damage > 0) {
+                    logMessage += "Dealt " + damage + " damage!";
+                    if (reduced > 0) {
+                        logMessage += " (Blocked: " + reduced + ")";
+                    }
+                    if (action.getStatusEffect() != null) {
+                        logMessage += " " + action.getStatusEffect();
+                    }
+                } else {
+                    logMessage += "Shielded!";
+                }
+                addBattleLog(logMessage);
+                
+                int newOpponentHp = currentBattle.getDefenderHpBefore();
+                opponentHpLabel.setText("HP: " + Math.max(0, newOpponentHp) + "/" + opponent.getMaxHp());
+                opponentHpBar.setProgress(Math.max(0, (double) newOpponentHp / opponent.getMaxHp()));
+            } else {
+                addBattleLog("You cast " + spell.getName() + "... but missed!");
+            }
             
             checkBattleEnd();
             
@@ -166,21 +218,36 @@ public class BattleController {
     private void executeEnemyTurn() {
         Platform.runLater(() -> {
             try {
-                String[] attacks = {BattleService.ATTACK_SWORD, BattleService.ATTACK_WAND};
-                String enemyAttack = attacks[(int)(Math.random() * attacks.length)];
+                List<Spell> attackSpells = battleService.getAttackSpells();
+                Spell randomSpell = attackSpells.get((int)(Math.random() * attackSpells.size()));
                 
-                BattleAction action = battleService.executeTurn(currentBattle, enemyAttack, opponent.getId());
+                BattleAction action = battleService.castSpell(currentBattle, randomSpell, opponent.getId(), currentUser.getId());
                 battleActions.add(action);
                 
-                int damage = action.getDamageDealt();
-                int reduced = action.getDamageReduced();
-                
-                addBattleLog(opponent.getUsername() + " used " + enemyAttack + "!");
-                addBattleLog("Dealt " + damage + " damage (Reduced by " + reduced + ")");
-                
-                int newPlayerHp = currentBattle.getAttackerHpBefore();
-                playerHpLabel.setText("HP: " + Math.max(0, newPlayerHp) + "/" + currentUser.getMaxHp());
-                playerHpBar.setProgress(Math.max(0, (double) newPlayerHp / currentUser.getMaxHp()));
+                if (action.isHit()) {
+                    int damage = action.getDamageDealt();
+                    int reduced = action.getDamageReduced();
+                    
+                    String logMessage = opponent.getUsername() + " cast " + randomSpell.getName() + "! ";
+                    if (damage > 0) {
+                        logMessage += "Dealt " + damage + " damage!";
+                        if (reduced > 0) {
+                            logMessage += " (Blocked: " + reduced + ")";
+                        }
+                        if (action.getStatusEffect() != null) {
+                            logMessage += " " + action.getStatusEffect();
+                        }
+                    } else {
+                        logMessage += "You blocked with shield!";
+                    }
+                    addBattleLog(logMessage);
+                    
+                    int newPlayerHp = currentBattle.getAttackerHpBefore();
+                    playerHpLabel.setText("HP: " + Math.max(0, newPlayerHp) + "/" + currentUser.getMaxHp());
+                    playerHpBar.setProgress(Math.max(0, (double) newPlayerHp / currentUser.getMaxHp()));
+                } else {
+                    addBattleLog(opponent.getUsername() + " cast " + randomSpell.getName() + "... but missed!");
+                }
                 
                 try {
                     Optional<User> updatedUser = userService.getUserById(currentUser.getId());
@@ -199,7 +266,7 @@ public class BattleController {
                     nextTurnBtn.setVisible(false);
                     attackButtonsBox.setVisible(true);
                     isPlayerTurn = true;
-                    addBattleLog("Your turn!");
+                    addBattleLog("Your turn! Choose your spell.");
                 }
             } catch (SQLException e) {
                 addBattleLog("Error: " + e.getMessage());
@@ -298,7 +365,7 @@ public class BattleController {
             controller.initData(currentUser, this);
             
             Stage stage = (Stage) battleLogContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -314,7 +381,7 @@ public class BattleController {
             controller.initData(currentUser, this);
             
             Stage stage = (Stage) battleLogContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
