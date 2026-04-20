@@ -26,7 +26,7 @@
             
             <Region HBox.hgrow="ALWAYS"/>
             
-            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            <Button text="Back" styleClass="pill-button" onAction="#goBack"/>
         </HBox>
     </top>
 
@@ -43,7 +43,7 @@
             <Label text="YOUR POTIONS" styleClass="title-label"/>
             <VBox spacing="8" alignment="Center" fx:id="userPotionsContainer"/>
             
-            <Button text="FREE DAILY HEAL" styleClass="primary-button" onAction="#useDailyHeal"/>
+            <Button text="FREE DAILY HEAL" styleClass="pill-battle" onAction="#useDailyHeal"/>
             <Label fx:id="dailyHealLabel" text="Available" styleClass="cyan-text"/>
         </VBox>
     </center>

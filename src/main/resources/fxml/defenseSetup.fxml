@@ -7,7 +7,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.DefenseSetupController" styleClass="root">
 
     <top>
-        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" spacing="20" BorderPane.alignment="CENTER">
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <padding>
                 <Insets top="12" bottom="12" left="20" right="20"/>
             </padding>
@@ -16,7 +16,7 @@
             
             <Region HBox.hgrow="ALWAYS"/>
             
-            <Button text="&lt; Back" styleClass="secondary-button" onAction="#goBack"/>
+            <Button text="Back" styleClass="pill-button" onAction="#goBack"/>
         </HBox>
     </top>
 
@@ -33,14 +33,14 @@
                     <Label text="SHIELD DEFENSE" styleClass="title-label"/>
                     <Label text="Constant damage reduction" styleClass="text-label"/>
                     <Label text="Reduces incoming damage by a fixed amount" styleClass="small-label"/>
-                    <Button fx:id="shieldBtn" text="Select Shield" styleClass="secondary-button" onAction="#selectShield"/>
+                    <Button fx:id="shieldBtn" text="Select Shield" styleClass="pill-button" onAction="#selectShield"/>
                 </VBox>
                 
                 <VBox spacing="10" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 20; -fx-background-radius: 10;">
                     <Label text="WAND DEFENSE" styleClass="title-label"/>
                     <Label text="Variable defense based on attack type" styleClass="text-label"/>
                     <Label text="Better against wand attacks, weaker against swords" styleClass="small-label"/>
-                    <Button fx:id="wandBtn" text="Select Wand" styleClass="secondary-button" onAction="#selectWand"/>
+                    <Button fx:id="wandBtn" text="Select Wand" styleClass="pill-button" onAction="#selectWand"/>
                 </VBox>
             </VBox>
             
