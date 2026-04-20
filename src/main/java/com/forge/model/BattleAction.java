@@ -8,26 +8,34 @@ public class BattleAction {
     private int attackerId;
     private int defenderId;
     private int roundNumber;
-    private String attackType;
-    private String defenseType;
+    private int spellId;
+    private String spellName;
+    private String spellType;
+    private String spellEffect;
     private int damageDealt;
     private int damageReduced;
     private int turnOrder;
+    private boolean hit;
+    private String statusEffect;
     private LocalDateTime createdAt;
 
     public BattleAction() {}
 
     public BattleAction(int battleId, int attackerId, int defenderId, int roundNumber, 
-                        String attackType, String defenseType, int damageDealt, int damageReduced, int turnOrder) {
+                        int spellId, String spellName, String spellType, String spellEffect,
+                        int damageDealt, int damageReduced, int turnOrder, boolean hit) {
         this.battleId = battleId;
         this.attackerId = attackerId;
         this.defenderId = defenderId;
         this.roundNumber = roundNumber;
-        this.attackType = attackType;
-        this.defenseType = defenseType;
+        this.spellId = spellId;
+        this.spellName = spellName;
+        this.spellType = spellType;
+        this.spellEffect = spellEffect;
         this.damageDealt = damageDealt;
         this.damageReduced = damageReduced;
         this.turnOrder = turnOrder;
+        this.hit = hit;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -46,11 +54,17 @@ public class BattleAction {
     public int getRoundNumber() { return roundNumber; }
     public void setRoundNumber(int roundNumber) { this.roundNumber = roundNumber; }
 
-    public String getAttackType() { return attackType; }
-    public void setAttackType(String attackType) { this.attackType = attackType; }
+    public int getSpellId() { return spellId; }
+    public void setSpellId(int spellId) { this.spellId = spellId; }
 
-    public String getDefenseType() { return defenseType; }
-    public void setDefenseType(String defenseType) { this.defenseType = defenseType; }
+    public String getSpellName() { return spellName; }
+    public void setSpellName(String spellName) { this.spellName = spellName; }
+
+    public String getSpellType() { return spellType; }
+    public void setSpellType(String spellType) { this.spellType = spellType; }
+
+    public String getSpellEffect() { return spellEffect; }
+    public void setSpellEffect(String spellEffect) { this.spellEffect = spellEffect; }
 
     public int getDamageDealt() { return damageDealt; }
     public void setDamageDealt(int damageDealt) { this.damageDealt = damageDealt; }
@@ -60,6 +74,12 @@ public class BattleAction {
 
     public int getTurnOrder() { return turnOrder; }
     public void setTurnOrder(int turnOrder) { this.turnOrder = turnOrder; }
+
+    public boolean isHit() { return hit; }
+    public void setHit(boolean hit) { this.hit = hit; }
+
+    public String getStatusEffect() { return statusEffect; }
+    public void setStatusEffect(String statusEffect) { this.statusEffect = statusEffect; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

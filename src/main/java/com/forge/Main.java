@@ -20,6 +20,12 @@ public class Main extends Application {
         
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/splash.fxml"));
         Scene scene = new Scene(root);
+        // Attach CSS stylesheet for consistent theming (including pills)
+        try {
+            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+        } catch (Exception e) {
+            // If stylesheet loading fails, continue without it to avoid breaking app
+        }
         
         stage.setTitle("FORGE");
         stage.setScene(scene);

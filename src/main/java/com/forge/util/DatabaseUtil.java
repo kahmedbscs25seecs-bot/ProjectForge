@@ -33,7 +33,7 @@ public static void initializeDatabase() {
         try {
             try (Connection conn = getConnection()) {
                 var stmt = conn.createStatement();
-                ResultSet rs = null;
+                ResultSet rs;
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS users (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
@@ -89,11 +89,15 @@ public static void initializeDatabase() {
                     "attacker_id INT NOT NULL," +
                     "defender_id INT NOT NULL," +
                     "round_number INT NOT NULL," +
-                    "attack_type VARCHAR(20) NOT NULL," +
-                    "defense_type VARCHAR(20) NOT NULL," +
-                    "damage_dealt INT NOT NULL," +
+                    "spell_id INT," +
+                    "spell_name VARCHAR(50)," +
+                    "spell_type VARCHAR(20)," +
+                    "spell_effect VARCHAR(50)," +
+                    "damage_dealt INT DEFAULT 0," +
                     "damage_reduced INT DEFAULT 0," +
                     "turn_order INT NOT NULL," +
+                    "hit BOOLEAN DEFAULT TRUE," +
+                    "status_effect VARCHAR(50)," +
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                     "FOREIGN KEY (battle_id) REFERENCES battles(id))");
 
@@ -129,6 +133,62 @@ public static void initializeDatabase() {
                         "('Large Potion', 'Restores 100 HP', 100, 50, 'RARE'), " +
                         "('Full Restore', 'Fully restores HP', 999, 100, 'EPIC')");
                 }
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS spells (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(50) NOT NULL," +
+                    "description TEXT," +
+                    "type VARCHAR(20) NOT NULL," +
+                    "base_damage INT DEFAULT 0," +
+                    "mana_cost INT DEFAULT 0," +
+                    "accuracy INT DEFAULT 100," +
+                    "effect VARCHAR(50)," +
+                    "rarity VARCHAR(20) DEFAULT 'COMMON')");
+
+                rs = stmt.executeQuery("SELECT COUNT(*) FROM spells");
+                rs.next();
+                if (rs.getInt(1) == 0) {
+                    stmt.execute("INSERT INTO spells (name, description, type, base_damage, mana_cost, accuracy, effect, rarity) VALUES " +
+                        "('Incendio', 'Fire spell - burns for extra damage', 'ATTACK', 35, 15, 90, 'BURN', 'COMMON'), " +
+                        "('Aguamenti', 'Water spell - soaking hit', 'ATTACK', 30, 12, 95, 'WET', 'COMMON'), " +
+                        "('Stupefy', 'Stunning blow - may stun enemy', 'ATTACK', 40, 18, 85, 'STUN', 'UNCOMMON'), " +
+                        "('Expelliarmus', 'Disarms opponent - drops their wand', 'ATTACK', 25, 10, 100, 'DISARM', 'UNCOMMON'), " +
+                        "('Avada Kedavra', 'Unforgivable curse - massive damage', 'ATTACK', 80, 35, 60, 'DEATH', 'LEGENDARY'), " +
+                        "('Protego', 'Shield charm - blocks attacks', 'DEFENSE', 20, 10, 100, 'SHIELD', 'COMMON'), " +
+                        "('Reparo', 'Mending charm - repairs your defense', 'DEFENSE', 15, 8, 100, 'HEAL', 'COMMON'), " +
+                        "('Fiendfyre', 'Converts enemy attack to fire', 'DEFENSE', 30, 20, 75, 'REFLECT', 'EPIC'), " +
+                        "('Lumos', 'Reveals hidden information', 'UTILITY', 0, 5, 100, 'REVEAL', 'COMMON'), " +
+                        "('Nox', 'Helps see enemy weaknesses', 'UTILITY', 0, 8, 100, 'SCAN', 'UNCOMMON'), " +
+                        "('Obliviate', 'Confuses enemy - reduces accuracy', 'CURSED', 20, 25, 70, 'CONFUSE', 'RARE')");
+                }
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS wands (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(50) NOT NULL," +
+                    "wood VARCHAR(30)," +
+                    "core VARCHAR(30)," +
+                    "attack_bonus INT DEFAULT 0," +
+                    "defense_bonus INT DEFAULT 0," +
+                    "luck_bonus INT DEFAULT 0," +
+                    "cost INT DEFAULT 0," +
+                    "unlock_level INT DEFAULT 1)");
+
+                rs = stmt.executeQuery("SELECT COUNT(*) FROM wands");
+                rs.next();
+                if (rs.getInt(1) == 0) {
+                    stmt.execute("INSERT INTO wands (name, wood, core, attack_bonus, defense_bonus, luck_bonus, cost, unlock_level) VALUES " +
+                        "('Core Wand', 'Oak', 'Phoenix Feather', 5, 5, 5, 0, 1), " +
+                        "('Willow Wand', 'Willow', 'Dragon Heartstring', 10, 8, 3, 100, 3), " +
+                        "('Hazel Wand', 'Hazel', 'Unicorn Hair', 8, 10, 8, 100, 5), " +
+                        "('Ebony Wand', 'Ebony', 'Thestral Tail', 15, 5, 10, 200, 7), " +
+                        "('Elder Wand', 'Elder', 'Deathly Hallow', 25, 15, 15, 500, 15)");
+                }
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS user_wand (" +
+                    "user_id INT PRIMARY KEY," +
+                    "wand_id INT DEFAULT 1," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id)," +
+                    "FOREIGN KEY (wand_id) REFERENCES wands(id))");
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS modes (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +

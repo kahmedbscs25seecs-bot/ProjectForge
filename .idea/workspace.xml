@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3ff30e29-ec80-4dc8-86e6-e61665629108" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/fxml/battle.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/battle.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/forge/util/DatabaseUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
