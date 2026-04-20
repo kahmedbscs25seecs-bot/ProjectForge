@@ -16,7 +16,7 @@
             
             <Region HBox.hgrow="ALWAYS"/>
             
-            <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+            <Button text="Back" styleClass="pill-button" onAction="#goBack"/>
         </HBox>
     </top>
 

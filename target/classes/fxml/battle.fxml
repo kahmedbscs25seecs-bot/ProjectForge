@@ -32,9 +32,9 @@
             <Region HBox.hgrow="ALWAYS"/>
             
             <HBox spacing="8" alignment="CENTER">
-                <Button text="Heal" styleClass="secondary-button" onAction="#openHealShop"/>
-                <Button text="Def" styleClass="secondary-button" onAction="#openDefenseSetup"/>
-                <Button text="Back" styleClass="secondary-button" onAction="#goBack"/>
+                <Button text="Heal" styleClass="pill-button" onAction="#openHealShop"/>
+                <Button text="Def" styleClass="pill-button" onAction="#openDefenseSetup"/>
+                <Button text="Back" styleClass="pill-button" onAction="#goBack"/>
             </HBox>
         </HBox>
     </top>
@@ -82,18 +82,18 @@
             
             <HBox spacing="12" alignment="CENTER">
                 <VBox spacing="2" alignment="CENTER">
-                    <Button text="SWORD" styleClass="primary-button" prefWidth="80" onAction="#swordAttack"/>
+                    <Button text="SWORD" styleClass="pill-battle" prefWidth="80" onAction="#swordAttack"/>
                     <Label text="Constant" styleClass="small-label"/>
                 </VBox>
                 <VBox spacing="2" alignment="CENTER">
-                    <Button text="WAND" styleClass="secondary-button" prefWidth="80" onAction="#wandAttack"/>
+                    <Button text="WAND" styleClass="pill-button" prefWidth="80" onAction="#wandAttack"/>
                     <Label text="Variable" styleClass="small-label"/>
                 </VBox>
             </HBox>
             
-            <Button fx:id="findOpponentBtn" text="FIND OPPONENT" styleClass="primary-button" prefWidth="160" onAction="#findOpponent"/>
-            <Button fx:id="nextTurnBtn" text="NEXT TURN" styleClass="primary-button" prefWidth="160" onAction="#nextTurn" visible="false"/>
-            <Button fx:id="newBattleBtn" text="NEW BATTLE" styleClass="primary-button" prefWidth="160" onAction="#newBattle" visible="false"/>
+            <Button fx:id="findOpponentBtn" text="FIND OPPONENT" styleClass="pill-battle" prefWidth="160" onAction="#findOpponent"/>
+            <Button fx:id="nextTurnBtn" text="NEXT TURN" styleClass="pill-battle" prefWidth="160" onAction="#nextTurn" visible="false"/>
+            <Button fx:id="newBattleBtn" text="NEW BATTLE" styleClass="pill-battle" prefWidth="160" onAction="#newBattle" visible="false"/>
         </VBox>
     </center>
 </BorderPane>

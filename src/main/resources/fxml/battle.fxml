@@ -80,7 +80,7 @@
                 </ScrollPane>
             </VBox>
             
-            <HBox spacing="12" alignment="CENTER">
+            <HBox fx:id="attackButtonsBox" spacing="12" alignment="CENTER" visible="false">
                 <VBox spacing="2" alignment="CENTER">
                     <Button text="SWORD" styleClass="pill-battle" prefWidth="80" onAction="#swordAttack"/>
                     <Label text="Constant" styleClass="small-label"/>

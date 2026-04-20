@@ -297,8 +297,8 @@
     -fx-font-weight: bold;
     -fx-padding: 5 12 5 12;
     -fx-cursor: hand;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
 }
 
 .close-button:hover {
@@ -314,11 +314,68 @@
     -fx-font-weight: bold;
     -fx-padding: 12 30 12 30;
     -fx-cursor: hand;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 20px;
 }
 
 .primary-button:hover {
     -fx-effect: dropshadow(gaussian, #00fff5, 15, 0.8, 0, 0);
+}
+
+/* Pill Button - Small (for header pills) */
+.pill-button {
+    -fx-background-color: #1a1a2e;
+    -fx-border-color: #3a3a5e;
+    -fx-border-width: 1px;
+    -fx-text-fill: #b0b0b0;
+    -fx-font-size: 12px;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.pill-button:hover {
+    -fx-background-color: #2a2a4e;
+    -fx-border-color: #00fff5;
+    -fx-text-fill: #00fff5;
+}
+
+/* Pill Button - Large Battle */
+.pill-battle {
+    -fx-background-color: #00fff520;
+    -fx-border-color: #00fff5;
+    -fx-border-width: 2px;
+    -fx-text-fill: #00fff5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.pill-battle:hover {
+    -fx-background-color: #00fff540;
+    -fx-effect: dropshadow(gaussian, #00fff5, 10, 0.5, 0, 0);
+}
+
+/* Secondary Button pill style */
+.secondary-button {
+    -fx-background-color: #1a1a2e;
+    -fx-border-color: #3a3a5e;
+    -fx-border-width: 1px;
+    -fx-text-fill: #b0b0b0;
+    -fx-font-size: 12px;
+    -fx-padding: 6 14 6 14;
+    -fx-cursor: hand;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #2a2a4e;
+    -fx-border-color: #ff00ff;
+    -fx-text-fill: #ff00ff;
 }
 
 /* HP Bar */
