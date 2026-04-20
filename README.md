@@ -1,36 +1,55 @@
-# Forge - Gamified Productivity Application
+# FORGE - Gamified Productivity Application
 
-## Overview
-
-Forge is a JavaFX desktop application that gamifies productivity by letting users select "modes" (Study, Body Builder, Introvertness Killer, etc.) and complete associated quests to earn XP, coins, and achievements.
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java">
+  <img src="https://img.shields.io/badge/JavaFX-26-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/MySQL-8-orange?style=for-the-badge&logo=mysql">
+  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache+maven">
+</p>
 
 ---
 
-## Features
+## 📱 Overview
 
-### Core Features
-- **User System**: Registration and login with secure password hashing
-- **Mode Selection**: Choose from different productivity modes
-- **Quest System**: Start, complete, or abandon quests
-- **XP & Leveling**: Earn XP by completing quests, level up
-- **Inventory**: Buy and equip items (cosmetic + functional)
-- **Achievements**: Unlock achievements based on progress
-- **Custom Modes**: Create your own modes with custom quests
+**FORGE** is a gamified productivity desktop application built with JavaFX and MySQL. It transforms everyday tasks into exciting quests, allowing users to level up, earn coins, and battle other players while accomplishing real-life goals. Think of it as an RPG meets your to-do list!
 
-### Modes Available
-1. **Study** - Focus and learn with productive tasks
-2. **Body Builder** - Fitness and workout challenges
-3. **Introvertness Killer** - Push your social boundaries
-4. **Creative** - Unleash your artistic side (unlocks at Level 3)
-5. **Mindful** - Meditation and mental wellness (unlocks at Level 5)
+### 🎯 Core Concept
+- Select productivity **modes** (Study, Body Builder, Social Skills, etc.)
+- Complete **quests** to earn XP and coins
+- Equip items on your character
+- Battle other players in async PvP
+- Unlock achievements and climb the leaderboard
 
-### Quest System
-- Each mode has multiple quests
-- Quests have XP and coin rewards
-- Penalties for abandoning quests (lose coins)
-- Track active, available, and completed quests
+---
 
-### Achievements
+## ✨ Features
+
+### 🎮 Core Features
+
+| Feature | Description |
+|---------|-------------|
+| **User System** | Secure registration/login with SHA-256 password hashing |
+| **Mode Selection** | 5 built-in modes + custom mode creation |
+| **Quest System** | START, COMPLETE, ABANDON with time limits and rewards |
+| **XP & Leveling** | Earn XP to level up (50 + level×10 XP per level) |
+| **Coin Economy** | Earn and spend coins in the shop |
+| **Streak Tracking** | Daily login streaks with bonus rewards |
+| **Inventory** | 7 equipment slots + shop system |
+| **Achievements** | Auto-unlocking badges based on progress |
+| **Battle System** | Async PvP with ranked matches |
+| **AI Quests** | AI-generated custom quests using Ollama |
+
+### ⚔️ Battle System
+
+| Aspect | Details |
+|--------|---------|
+| **Attack Types** | Sword (constant damage), Wand (variable damage) |
+| **Defense Types** | Shield (fixed reduction), Wand (varies with attack) |
+| **Matchmaking** | Auto-match with similar rank players |
+| **Healing** | Potions (buy from shop) + Free daily heal |
+| **Points** | Win: +20 Attack / +25 Defense, Lose: -15 / -10 |
+
+### 🏆 Achievements System
 - First Quest - Complete your first quest
 - Level 5 - Reach level 5
 - Level 10 - Reach level 10
@@ -38,108 +57,222 @@ Forge is a JavaFX desktop application that gamifies productivity by letting user
 - Quest Master - Complete 50 quests
 - Wealthy - Have 200 coins at once
 
----
+### 📋 Available Modes
 
-## Technology Stack
+| Mode | Description | Unlock Level |
+|------|-------------|--------------|
+| **Study** | Focus and learn with productive tasks | Level 1 |
+| **Body Builder** | Fitness and workout challenges | Level 1 |
+| **Introvertness Killer** | Push your social boundaries | Level 1 |
+| **Creative** | Unleash your artistic side | Level 3 |
+| **Mindful** | Meditation and mental wellness | Level 5 |
 
-- **Language**: Java 17+
-- **UI**: JavaFX 21
-- **Database**: MySQL
-- **Build Tool**: Maven
-- **IDE**: IntelliJ IDEA
+### 📊 Quest Difficulty Tiers
 
----
-
-## Project Structure
-
-```
-src/
-├── main/
-│   ├── java/com/forge/
-│   │   ├── Main.java              # Application entry point
-│   │   ├── model/                 # Data models
-│   │   │   ├── User.java           # User with XP/level
-│   │   │   ├── Mode.java           # Game modes
-│   │   │   ├── Quest.java          # Quests with rewards
-│   │   │   ├── Item.java           # Inventory items
-│   │   │   ├── Achievement.java    # Achievements
-│   │   │   ├── QuestProgress.java  # Quest progress tracking
-│   │   │   └── UserInventory.java # User's owned items
-│   │   ├── repository/             # Database access
-│   │   ├── service/                # Business logic
-│   │   ├── controller/             # JavaFX UI controllers
-│   │   └── util/                   # Database utilities
-│   └── resources/
-│       ├── fxml/                   # UI layouts
-│       └── css/                    # Cyberpunk styling
-```
+| Difficulty | Time Limit | XP Reward | Coin Reward |
+|------------|------------|-----------|-------------|
+| EASY | 12 hours | 30-40 | 15-20 |
+| MEDIUM | 24 hours | 40-60 | 20-30 |
+| HARD | 72 hours | 60-80 | 30-50 |
+| BOSS | 72 hours | 100+ | 50+ |
 
 ---
 
-## Setup Instructions
+## 🛠️ Technology Stack
+
+| Component | Technology | Version |
+|-----------|------------|---------|
+| **Language** | Java | 17 |
+| **GUI Framework** | JavaFX | 26 |
+| **Database** | MySQL | 8.x |
+| **AI (Quest Gen)** | Ollama + Llama3 | Local |
+| **Build Tool** | Maven | 3.x |
+| **Logging** | SLF4J | 2.0.9 |
+| **JSON** | Jackson | 2.16.1 |
+
+---
+
+## 🗄️ Database Schema
+
+### Core Tables
+- **users** - User accounts, stats, battle info
+- **modes** - Productivity categories
+- **quests** - Available quests per mode
+- **user_progress** - Active/completed quests
+- **items** - Shop inventory items
+- **user_inventory** - User owned items
+- **achievements** - Achievement definitions
+
+### Battle Tables
+- **battles** - Battle records
+- **battle_actions** - Turn-by-turn actions
+- **healing_items** - Potion catalog
+- **user_healing_items** - User owned potions
+
+---
+
+## 🚀 Setup Instructions
 
 ### Prerequisites
-1. **Java JDK 17+** installed
-2. **JavaFX SDK 21** downloaded from https://openjfx.io
-3. **MySQL** installed and running
-4. **IntelliJ IDEA** (recommended)
+
+1. **Java JDK 17+**
+   - Download from: https://adoptium.net/
+
+2. **JavaFX SDK 26**
+   - Download from: https://openjfx.io/
+   - Extract to: `C:\Users\YourName\Downloads\javafx-sdk-26\lib`
+
+3. **MySQL 8.x**
+   - Install and start MySQL service
+   - Default credentials: `root` / `Seecs@123`
+
+4. **Ollama (Optional - for AI Quests)**
+   - Download from: https://ollama.com/
+   - Run: `ollama pull llama3`
 
 ### Database Setup
-- **Host**: localhost:3306
-- **Database**: forge (auto-created)
-- **Username**: root
-- **Password**: Seecs@123
 
-### Running the App
+```sql
+-- MySQL will auto-create the database on first run
+-- Database: forge (auto-created)
+-- Host: localhost:3306
+-- Username: root
+-- Password: Seecs@123
+```
 
-1. Open project in IntelliJ IDEA: `D:\AntiGravity\my-new-project`
+### Running the Application
 
-2. Create Run Configuration:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/kahmedbscs25seecs-bot/ProjectForge.git
+   cd ProjectForge
+   ```
+
+2. **Open in IntelliJ IDEA**
+   - File → Open → Select `D:\AntiGravity\my-new-project`
+
+3. **Create Run Configuration**
    - Main class: `com.forge.Main`
-   - VM options: `--module-path "C:\Users\khawa\Downloads\javafx-sdk-26\lib" --add-modules javafx.controls,javafx.fxml`
+   - VM options: 
+     ```
+     --module-path "C:\Users\khawa\Downloads\javafx-sdk-26\lib" --add-modules javafx.controls,javafx.fxml
+     ```
 
-3. Run the application
-
-The database tables are auto-created on first run.
+4. **Run the application**
+   - The database tables are auto-created on first run
+   - Default data is seeded automatically
 
 ---
 
-## How to Use
+## 📁 Project Structure
+
+```
+src/main/java/com/forge/
+├── Main.java                    # Application entry point
+├── model/                     # Data models
+│   ├── User.java              # User with XP/level/stats/battle
+│   ├── Mode.java             # Game modes
+│   ├── Quest.java            # Quests with rewards
+│   ├── Item.java             # Inventory items
+│   ├── Achievement.java     # Achievements
+│   ├── Battle.java          # Battle records
+│   ├── BattleAction.java    # Turn actions
+│   └── HealingItem.java      # Potions
+├── repository/               # Database access layer
+│   ├── UserRepository.java
+│   ├── QuestRepository.java
+│   ├── BattleRepository.java
+│   └── ... (12 more)
+├── service/                 # Business logic
+│   ├── UserService.java
+│   ├── QuestService.java
+│   ├── BattleService.java
+│   ├── AIQuestService.java
+│   └── ... (6 more)
+├── controller/             # JavaFX UI controllers
+│   ├── LoginController.java
+│   ├── MainController.java
+│   ├── BattleController.java
+│   └── ... (14 more)
+└── util/                   # Utilities
+    ├── DatabaseUtil.java
+    └── DragUtil.java
+
+src/main/resources/
+├── fxml/                   # JavaFX layouts
+│   ├── login.fxml
+│   ├── main.fxml
+│   ├── battle.fxml
+│   └── ... (12 more)
+└── css/
+    └── styles.css          # Cyberpunk theme
+```
+
+---
+
+## 🎮 How to Use
 
 ### 1. Registration/Login
 - Enter username and password
-- Click "REGISTER" to create new account
-- Click "LOGIN" to sign in
+- Click "CREATE ACCOUNT" to register
+- Click "ENTER" to login
 
 ### 2. Select a Mode
-- Click on any available mode card
-- Click "View Quests" to see available quests
+- Click on any mode card (some unlock at higher levels)
+- Active modes appear in the top toggle bar
 
 ### 3. Complete Quests
 - Click "START QUEST" to begin a quest
 - Do the task in real life
-- Click "MARK COMPLETE" to earn rewards
-- Or click "ABANDON" (with penalty)
+- Click "COMPLETE" to earn rewards
+- Or click "ABANDON" (with coin penalty)
 
-### 4. Progress
+### 4. Progress & Level Up
 - Earn XP to level up
 - Collect coins from quests
-- Buy items in Inventory
+- Buy items in Inventory shop
 - Unlock achievements
-- View your achievements in the Achievements tab
+
+### 5. Battle System
+- Click "Battle" in the header
+- Click "FIND OPPONENT" to find a similar-ranked player
+- Choose SWORD (constant) or WAND (variable) attack
+- Win to gain rank points!
+
+### 6. Heal Up
+- Buy potions in the Heal Shop
+- Use free daily heal (resets at midnight)
 
 ---
 
-## Default Data
+## 🎨 UI Features
 
-The app seeds default data on first run:
-- 5 modes with quests (Study, Body Builder, Introvertness Killer, Creative, Mindful)
-- 6 inventory items (Golden Avatar, Dark Knight Title, Legendary Badge, Coin Boost, Streak Shield, Quest Refresh)
-- 6 achievements (First Quest, Level 5, Level 10, Coin Collector, Quest Master, Wealthy)
+- **Cyberpunk Theme** - Neon colors (cyan, magenta, gold)
+- **Pill-Shaped Buttons** - Modern rounded navigation
+- **Drag-to-Move Window** - Custom title bar
+- **Animated Splash Screen** - Loading animation
+- **Character Display** - Colored equipment visualization
+- **Health Bars** - Visual HP and XP tracking
 
 ---
 
-## Troubleshooting
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📝 Version History
+
+| Version | Features |
+|---------|----------|
+| **v1.0.0** | Initial release with core features |
+| **v1.1.0** | Added Battle System, Healing Shop, Leaderboard |
+| **v1.2.0** | Added AI Quest Generation (Ollama), Pill Button UI |
+
+---
+
+## ⚠️ Troubleshooting
 
 ### "Module javafx.controls not found"
 - Update JavaFX SDK path in Run Configuration
@@ -159,19 +292,13 @@ The app seeds default data on first run:
 
 ---
 
-## Version History
+## 📧 Contact
 
-- **v1.0.0** - Initial release with core features:
-  - User authentication
-  - Mode selection
-  - Quest system (start, complete, abandon)
-  - XP/Leveling
-  - Inventory
-  - Achievements
-  - Custom mode creation
+- **GitHub**: https://github.com/kahmedbscs25seecs-bot/ProjectForge
+- **Email**: Contact through GitHub
 
 ---
 
-## Project Location
-
-`D:\AntiGravity\my-new-project`
+<p align="center">
+  <strong>Level up your life with FORGE! 🎮</strong>
+</p>
