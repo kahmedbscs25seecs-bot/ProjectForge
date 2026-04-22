@@ -5,12 +5,12 @@ import com.forge.model.User;
 import com.forge.repository.HealingItemRepository;
 import com.forge.repository.UserRepository;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -219,7 +219,7 @@ public class HealShopController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) potionsContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }

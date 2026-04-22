@@ -3,10 +3,10 @@ package com.forge.controller;
 import com.forge.model.User;
 import com.forge.repository.UserRepository;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -86,7 +86,7 @@ public class DefenseSetupController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) currentDefenseLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }

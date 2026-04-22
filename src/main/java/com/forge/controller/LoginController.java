@@ -3,10 +3,10 @@ package com.forge.controller;
 import com.forge.model.User;
 import com.forge.service.UserService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -97,12 +97,12 @@ public class LoginController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
             stage.setResizable(true);
-            stage.setWidth(1000);
-            stage.setHeight(700);
-            stage.setMinWidth(900);
-            stage.setMinHeight(600);
+            stage.setWidth(1100);
+            stage.setHeight(750);
+            stage.setMinWidth(1000);
+            stage.setMinHeight(700);
             
             DragUtil.makeDraggable(stage, root);
         } catch (Exception e) {

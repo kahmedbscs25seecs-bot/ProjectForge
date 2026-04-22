@@ -12,6 +12,7 @@ com\forge\util\DatabaseUtil.class
 com\forge\service\AIQuestService$1.class
 com\forge\controller\InventoryController.class
 com\forge\service\UserService.class
+com\forge\controller\OpponentPreviewController.class
 com\forge\service\QuestService.class
 com\forge\repository\UserRepository.class
 com\forge\util\DragUtil.class
@@ -37,6 +38,7 @@ com\forge\model\Achievement.class
 com\forge\repository\QuestProgressRepository.class
 com\forge\model\Spell$Rarity.class
 com\forge\controller\AchievementsController.class
+com\forge\service\StatCalculationService.class
 com\forge\repository\HealingItemRepository.class
 com\forge\controller\QuestSuggestionController$1.class
 com\forge\model\Item$ItemType.class
@@ -49,6 +51,7 @@ com\forge\controller\AllActiveQuestsController.class
 com\forge\repository\AchievementRepository.class
 com\forge\model\Item$EquipmentSlot.class
 com\forge\controller\QuestSuggestionController$2.class
+com\forge\controller\PrepareForBattleController.class
 com\forge\service\RuleBasedQuestGenerator.class
 com\forge\service\QuestService$1.class
 com\forge\model\HealingItem.class
@@ -59,3 +62,4 @@ com\forge\model\Wand.class
 com\forge\service\AIQuestService.class
 com\forge\model\User.class
 com\forge\model\QuestProgress.class
+com\forge\service\StatCalculationService$PlayerStats.class

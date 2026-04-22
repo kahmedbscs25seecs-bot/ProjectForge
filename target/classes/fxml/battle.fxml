@@ -17,8 +17,8 @@
             </padding>
             
             <VBox spacing="2">
-                <Label fx:id="usernameLabel" text="Username" styleClass="title-label"/>
-                <Label fx:id="statsLabel" text="ATK:10 | DEF:10 | LCK:5 | 🪄 Wand" styleClass="text-label"/>
+                <Label fx:id="usernameLabel" text="Username" styleClass="title-label" style="-fx-font-size: 18px;"/>
+                <Label fx:id="statsLabel" text="ATK:10 | DEF:10 | LCK:5 | 🪄 Wand" styleClass="text-label" style="-fx-font-size: 13px;"/>
             </VBox>
             
             <Region HBox.hgrow="ALWAYS"/>
@@ -90,14 +90,14 @@
 
             <!-- Opponent Analysis Panel -->
             <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="400" visible="true" fx:id="analysisPanel">
-                <Label text="📊 OPPONENT ANALYSIS" styleClass="text-label" style="-fx-font-size: 11;"/>
+                <Label text="📊 OPPONENT ANALYSIS" styleClass="text-label" style="-fx-font-size: 12px; -fx-text-fill: #ffd700;"/>
                 <ScrollPane prefHeight="60" prefWidth="380" styleClass="scroll-pane">
                     <TextFlow fx:id="analysisText"/>
                 </ScrollPane>
             </VBox>
 
             <!-- Spell Selection -->
-            <Label text="✨ CHOOSE YOUR SPELL ✨" styleClass="title-label"/>
+            <Label text="✨ CHOOSE YOUR SPELL ✨" styleClass="title-label" style="-fx-font-size: 18px;"/>
 
             <HBox fx:id="attackButtonsBox" spacing="10" alignment="CENTER" visible="false">
                 <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" prefWidth="500" prefHeight="100">
@@ -127,10 +127,10 @@
             </HBox>
 
             <!-- Battle Log -->
-            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="400">
-                <Label text="📜 BATTLE LOG" styleClass="text-label" style="-fx-font-size: 11;"/>
-                <ScrollPane prefHeight="70" styleClass="scroll-pane" prefWidth="380">
-                    <VBox fx:id="battleLogContainer" spacing="2"/>
+            <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #0a0a15; -fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #2a2a4e; -fx-border-width: 1px;" prefWidth="400">
+                <Label text="📜 BATTLE LOG" styleClass="text-label" style="-fx-font-size: 12px; -fx-text-fill: #ffd700;"/>
+                <ScrollPane prefHeight="80" styleClass="scroll-pane" prefWidth="380">
+                    <VBox fx:id="battleLogContainer" spacing="4" style="-fx-padding: 5;"/>
                 </ScrollPane>
             </VBox>
 

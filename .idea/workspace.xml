@@ -5,7 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ff30e29-ec80-4dc8-86e6-e61665629108" name="Changes" comment="Update battle UI with Harry Potter theme - spell casting, character display, opponent analysis">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/forge.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/controller/BattleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/controller/BattleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/model/Item$EquipmentSlot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/model/Item$EquipmentSlot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/model/Item$ItemType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/model/Item$ItemType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/model/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/model/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/repository/ItemRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/repository/ItemRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/repository/SpellRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/repository/SpellRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/repository/UserInventoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/repository/UserInventoryRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/repository/WandRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/repository/WandRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/service/BattleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/service/BattleService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/forge/util/DatabaseUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/battle.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/battle.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/healShop.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/healShop.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/consumer-2666026864845896458.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

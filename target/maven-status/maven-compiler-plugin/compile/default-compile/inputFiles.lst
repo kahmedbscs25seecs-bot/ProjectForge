@@ -10,6 +10,7 @@ D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\LeaderboardCont
 D:\AntiGravity\my-new-project\src\main\java\com\forge\repository\ItemRepository.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\MainController.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\AchievementsController.java
+D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\OpponentPreviewController.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\QuestsController.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\model\Wand.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\repository\SpellRepository.java
@@ -43,6 +44,8 @@ D:\AntiGravity\my-new-project\src\main\java\com\forge\util\DragUtil.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\util\SceneHelper.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\AllActiveQuestsController.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\repository\QuestRepository.java
+D:\AntiGravity\my-new-project\src\main\java\com\forge\service\StatCalculationService.java
+D:\AntiGravity\my-new-project\src\main\java\com\forge\controller\PrepareForBattleController.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\repository\QuestProgressRepository.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\service\AIQuestService.java
 D:\AntiGravity\my-new-project\src\main\java\com\forge\model\Achievement.java

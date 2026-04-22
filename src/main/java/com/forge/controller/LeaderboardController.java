@@ -5,12 +5,12 @@ import com.forge.model.User;
 import com.forge.repository.UserRepository;
 import com.forge.service.BattleService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -168,7 +168,7 @@ public class LeaderboardController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) leaderboardContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }

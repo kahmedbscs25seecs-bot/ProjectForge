@@ -8,11 +8,11 @@ import com.forge.model.User;
 import com.forge.service.QuestService;
 import com.forge.service.UserService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -292,7 +292,7 @@ public class QuestsController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) activeQuestContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
             DragUtil.makeDraggable(stage, root);
         } catch (Exception e) {
             e.printStackTrace();
@@ -309,7 +309,7 @@ public class QuestsController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) activeQuestContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -325,7 +325,7 @@ public class QuestsController {
             controller.initData(currentUser, currentMode, false);
             
             Stage stage = (Stage) activeQuestContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
             DragUtil.makeDraggable(stage, root);
         } catch (Exception e) {
             e.printStackTrace();

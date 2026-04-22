@@ -4,11 +4,11 @@ import com.forge.model.Achievement;
 import com.forge.model.User;
 import com.forge.service.AchievementService;
 import com.forge.util.DragUtil;
+import com.forge.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -92,7 +92,7 @@ public class AchievementsController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) unlockedContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
             DragUtil.makeDraggable(stage, root);
         } catch (Exception e) {
             e.printStackTrace();
