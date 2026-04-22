@@ -108,6 +108,63 @@ public static void initializeDatabase() {
                     "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
                     "FOREIGN KEY (user_id) REFERENCES users(id))");
 
+                stmt.execute("CREATE TABLE IF NOT EXISTS items (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(100) NOT NULL," +
+                    "description TEXT," +
+                    "type VARCHAR(30) DEFAULT 'COSMETIC'," +
+                    "slot VARCHAR(20)," +
+                    "sprite_color VARCHAR(20)," +
+                    "unlock_level INT DEFAULT 1," +
+                    "cost INT DEFAULT 0," +
+                    "rarity VARCHAR(20) DEFAULT 'COMMON')");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS user_inventory (" +
+                    "user_id INT NOT NULL," +
+                    "item_id INT NOT NULL," +
+                    "quantity INT DEFAULT 1," +
+                    "acquired_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                    "PRIMARY KEY (user_id, item_id)," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE)");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS achievements (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "name VARCHAR(100) NOT NULL," +
+                    "description TEXT," +
+                    "icon VARCHAR(50)," +
+                    "xp_reward INT DEFAULT 10," +
+                    "coin_reward INT DEFAULT 5," +
+                    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS user_achievements (" +
+                    "user_id INT NOT NULL," +
+                    "achievement_id INT NOT NULL," +
+                    "unlocked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                    "PRIMARY KEY (user_id, achievement_id)," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (achievement_id) REFERENCES achievements(id) ON DELETE CASCADE)");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS user_progress (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "user_id INT NOT NULL," +
+                    "quest_id INT NOT NULL," +
+                    "status VARCHAR(20) DEFAULT 'PENDING'," +
+                    "progress_data TEXT," +
+                    "started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                    "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+                    "expires_at TIMESTAMP NULL," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (quest_id) REFERENCES quests(id) ON DELETE CASCADE)");
+
+                stmt.execute("CREATE TABLE IF NOT EXISTS user_active_modes (" +
+                    "user_id INT NOT NULL," +
+                    "mode_id INT NOT NULL," +
+                    "activated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                    "PRIMARY KEY (user_id, mode_id)," +
+                    "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
+                    "FOREIGN KEY (mode_id) REFERENCES modes(id) ON DELETE CASCADE)");
+
                 stmt.execute("CREATE TABLE IF NOT EXISTS healing_items (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "name VARCHAR(50) NOT NULL," +
