@@ -117,16 +117,25 @@ public static void initializeDatabase() {
                     "sprite_color VARCHAR(20)," +
                     "unlock_level INT DEFAULT 1," +
                     "cost INT DEFAULT 0," +
-                    "rarity VARCHAR(20) DEFAULT 'COMMON')");
+                    "rarity VARCHAR(20) DEFAULT 'COMMON'," +
+                    "attack_bonus INT DEFAULT 0," +
+                    "defense_bonus INT DEFAULT 0," +
+                    "is_consumable BOOLEAN DEFAULT FALSE)");
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS user_inventory (" +
                     "user_id INT NOT NULL," +
                     "item_id INT NOT NULL," +
                     "quantity INT DEFAULT 1," +
                     "acquired_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
+                    "is_equipped BOOLEAN DEFAULT FALSE," +
                     "PRIMARY KEY (user_id, item_id)," +
                     "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE," +
                     "FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE)");
+
+                try { stmt.execute("ALTER TABLE items ADD COLUMN attack_bonus INT DEFAULT 0"); } catch (Exception e) {}
+                try { stmt.execute("ALTER TABLE items ADD COLUMN defense_bonus INT DEFAULT 0"); } catch (Exception e) {}
+                try { stmt.execute("ALTER TABLE items ADD COLUMN is_consumable BOOLEAN DEFAULT FALSE"); } catch (Exception e) {}
+                try { stmt.execute("ALTER TABLE user_inventory ADD COLUMN is_equipped BOOLEAN DEFAULT FALSE"); } catch (Exception e) {}
 
                 stmt.execute("CREATE TABLE IF NOT EXISTS achievements (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
@@ -335,28 +344,31 @@ public static void initializeDatabase() {
             rs = stmt.executeQuery("SELECT COUNT(*) FROM items");
             rs.next();
             if (rs.getInt(1) == 0) {
-                stmt.execute("INSERT INTO items (name, description, type, slot, sprite_color, unlock_level, cost) VALUES " +
-                    "('Iron Helmet', 'Basic head protection', 'COSMETIC', 'HEAD', '#C0C0C0', 1, 0), " +
-                    "('Golden Crown', 'Royal headgear', 'COSMETIC', 'HEAD', '#FFD700', 3, 100), " +
-                    "('Diamond Band', 'Epic headgear', 'COSMETIC', 'HEAD', '#B9F2FF', 7, 250), " +
-                    "('Iron Chestplate', 'Basic body armor', 'COSMETIC', 'CHEST', '#C0C0C0', 1, 0), " +
-                    "('Golden Armor', 'Royal chestpiece', 'COSMETIC', 'CHEST', '#FFD700', 3, 100), " +
-                    "('Diamond Chest', 'Epic body armor', 'COSMETIC', 'CHEST', '#B9F2FF', 7, 250), " +
-                    "('Iron Gloves', 'Basic hand protection', 'COSMETIC', 'GLOVES', '#C0C0C0', 1, 0), " +
-                    "('Golden Gloves', 'Royal gloves', 'COSMETIC', 'GLOVES', '#FFD700', 3, 100), " +
-                    "('Diamond Gloves', 'Epic gloves', 'COSMETIC', 'GLOVES', '#B9F2FF', 7, 250), " +
-                    "('Iron Leggings', 'Basic leg protection', 'COSMETIC', 'LEGS', '#C0C0C0', 1, 0), " +
-                    "('Golden Leggings', 'Royal leg armor', 'COSMETIC', 'LEGS', '#FFD700', 3, 100), " +
-                    "('Diamond Pants', 'Epic leg armor', 'COSMETIC', 'LEGS', '#B9F2FF', 7, 250), " +
-                    "('Iron Boots', 'Basic foot protection', 'COSMETIC', 'BOOTS', '#C0C0C0', 1, 0), " +
-                    "('Golden Boots', 'Royal boots', 'COSMETIC', 'BOOTS', '#FFD700', 3, 100), " +
-                    "('Diamond Boots', 'Epic boots', 'COSMETIC', 'BOOTS', '#B9F2FF', 7, 250), " +
-                    "('Wooden Sword', 'Basic weapon', 'COSMETIC', 'WEAPON', '#8B4513', 1, 0), " +
-                    "('Iron Sword', 'Standard weapon', 'COSMETIC', 'WEAPON', '#C0C0C0', 2, 50), " +
-                    "('Golden Blade', 'Royal sword', 'COSMETIC', 'WEAPON', '#FFD700', 5, 150), " +
-                    "('Legendary Blade', 'Epic weapon', 'COSMETIC', 'WEAPON', '#B9F2FF', 10, 300), " +
-                    "('Coin Pouch', '2x coins earned', 'FUNCTIONAL', 'ACCESSORY', '#FFD700', 2, 50), " +
-                    "('XP Ring', '2x XP earned', 'FUNCTIONAL', 'ACCESSORY', '#B9F2FF', 4, 75)");
+                stmt.execute("INSERT INTO items (name, description, type, slot, sprite_color, unlock_level, cost, attack_bonus, defense_bonus) VALUES " +
+                    "('Iron Helmet', 'Basic head protection +2 DEF', 'COSMETIC', 'HELMET', '#C0C0C0', 1, 0, 0, 2), " +
+                    "('Steel Helmet', 'Strong head protection +3 DEF', 'COSMETIC', 'HELMET', '#708090', 3, 100, 0, 3), " +
+                    "('Golden Crown', 'Royal headgear +4 DEF', 'COSMETIC', 'HELMET', '#FFD700', 5, 150, 0, 4), " +
+                    "('Diamond Band', 'Epic headgear +6 DEF', 'COSMETIC', 'HELMET', '#B9F2FF', 8, 300, 0, 6), " +
+                    "('Leather Armor', 'Basic body armor +2 DEF', 'COSMETIC', 'ARMOR', '#8B4513', 1, 0, 0, 2), " +
+                    "('Chainmail', 'Strong body armor +3 DEF', 'COSMETIC', 'ARMOR', '#C0C0C0', 3, 100, 0, 3), " +
+                    "('Plate Armor', 'Heavy armor +5 DEF', 'COSMETIC', 'ARMOR', '#708090', 5, 200, 0, 5), " +
+                    "('Dragon Scale', 'Epic armor +7 DEF', 'COSMETIC', 'ARMOR', '#228B22', 10, 400, 0, 7), " +
+                    "('Leather Gloves', 'Basic hand protection +1 ATK', 'COSMETIC', 'GLOVES', '#8B4513', 1, 0, 1, 0), " +
+                    "('Combat Gloves', 'Combat gloves +2 ATK', 'COSMETIC', 'GLOVES', '#2F4F4F', 3, 75, 2, 0), " +
+                    "('Gauntlets', 'Heavy gauntlets +3 ATK', 'COSMETIC', 'GLOVES', '#708090', 6, 150, 3, 0), " +
+                    "('War Gauntlets', 'Epic gauntlets +4 ATK', 'COSMETIC', 'GLOVES', '#FFD700', 9, 250, 4, 0), " +
+                    "('Leather Boots', 'Basic foot protection +1 DEF', 'COSMETIC', 'BOOTS', '#8B4513', 1, 0, 0, 1), " +
+                    "('Nice Boots', 'Nice boots +1 ATK +1 DEF', 'COSMETIC', 'BOOTS', '#654321', 3, 50, 1, 1), " +
+                    "('Swift Boots', 'Swift boots +2 ATK +1 DEF', 'COSMETIC', 'BOOTS', '#2F4F4F', 5, 100, 2, 1), " +
+                    "(' Shadow Boots', 'Shadow boots +3 ATK +2 DEF', 'COSMETIC', 'BOOTS', '#191970', 8, 200, 3, 2), " +
+                    "('Lucky Charm', 'Accessory +2 LCK', 'FUNCTIONAL', 'ACCESSORY', '#FFD700', 2, 50, 0, 0), " +
+                    "('Power Ring', 'Ring of power +1 ATK +1 DEF', 'FUNCTIONAL', 'ACCESSORY', '#B9F2FF', 4, 75, 1, 1), " +
+                    "('Amulet', 'Amulet +3 DEF', 'FUNCTIONAL', 'ACCESSORY', '#9932CC', 6, 100, 0, 3), " +
+                    "('Talisman', 'Epic talisman +2 ATK +2 DEF', 'FUNCTIONAL', 'ACCESSORY', '#FFD700', 10, 250, 2, 2), " +
+                    "('Strength Potion', 'Battle buff +5 ATK for 1 battle', 'FUNCTIONAL', 'CONSUMABLE', '#FF4500', 1, 25, 5, 0, TRUE), " +
+                    "('Defense Potion', 'Battle buff +5 DEF for 1 battle', 'FUNCTIONAL', 'CONSUMABLE', '#4169E1', 1, 25, 0, 5, TRUE), " +
+                    "('Power Elixir', 'Battle buff +3 ATK +3 DEF', 'FUNCTIONAL', 'CONSUMABLE', '#9932CC', 5, 50, 3, 3, TRUE), " +
+                    "('Legendary Elixir', 'Battle buff +5 ATK +5 DEF', 'FUNCTIONAL', 'CONSUMABLE', '#FFD700', 10, 100, 5, 5, TRUE)");
             }
 
             rs = stmt.executeQuery("SELECT COUNT(*) FROM achievements");

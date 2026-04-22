@@ -183,6 +183,7 @@ public void update(User user) throws SQLException {
         user.setCurrentHp(rs.getInt("current_hp"));
         user.setLastHealTime(rs.getTimestamp("last_heal_time") != null ? rs.getTimestamp("last_heal_time").toLocalDateTime() : null);
         user.setDefenseType(rs.getString("defense_type"));
+        user.setRank(user.getPlayerRank());
         return user;
     }
 }

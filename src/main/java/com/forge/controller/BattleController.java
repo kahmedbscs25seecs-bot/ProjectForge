@@ -4,9 +4,12 @@ import com.forge.model.Battle;
 import com.forge.model.BattleAction;
 import com.forge.model.User;
 import com.forge.model.Spell;
+import com.forge.model.Wand;
+import com.forge.model.UserInventory;
 import com.forge.service.BattleService;
 import com.forge.service.HarryPotterBattleService;
 import com.forge.service.UserService;
+import com.forge.service.StatCalculationService;
 import com.forge.util.DragUtil;
 import com.forge.util.SceneHelper;
 import javafx.application.Platform;
@@ -73,9 +76,18 @@ public class BattleController {
     private List<BattleAction> battleActions = new ArrayList<>();
     private boolean isPlayerTurn = true;
     private ScheduledExecutorService scheduler;
+    private Wand selectedWand;
+    private List<Spell> selectedAttackSpells;
+    private List<Spell> selectedDefenseSpells;
+    private List<UserInventory> equippedItems;
+    private final StatCalculationService statCalculationService = new StatCalculationService();
 
     public void initData(User user) {
         this.currentUser = user;
+        this.selectedWand = null;
+        this.selectedAttackSpells = null;
+        this.selectedDefenseSpells = null;
+        this.equippedItems = null;
         updateStats();
         
         if (battleLogContainer.getScene() != null) {
@@ -83,6 +95,33 @@ public class BattleController {
             Parent root = battleLogContainer.getScene().getRoot();
             DragUtil.makeDraggable(stage, root);
         }
+    }
+
+    public void initDataWithLoadout(User user, User opponent, Wand wand, List<Spell> attackSpells, List<Spell> defenseSpells, List<UserInventory> equipped) {
+        this.currentUser = user;
+        this.opponent = opponent;
+        this.selectedWand = wand;
+        this.selectedAttackSpells = attackSpells;
+        this.selectedDefenseSpells = defenseSpells;
+        this.equippedItems = equipped;
+        
+        try {
+            List<UserInventory> equippedList = (equipped != null) ? equipped.stream().filter(UserInventory::isEquipped).collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>();
+            StatCalculationService.PlayerStats stats = statCalculationService.calculateFinalStatsMinimal(user, wand, equippedList);
+            
+            currentUser.setAttack(stats.getFinalAttack());
+            currentUser.setDefense(stats.getFinalDefense());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        if (battleLogContainer.getScene() != null) {
+            Stage stage = (Stage) battleLogContainer.getScene().getWindow();
+            Parent root = battleLogContainer.getScene().getRoot();
+            DragUtil.makeDraggable(stage, root);
+        }
+        
+        updateStats();
     }
 
     private void updateStats() {
@@ -351,8 +390,36 @@ public class BattleController {
 
     private void addBattleLog(String message) {
         Label logLabel = new Label(message);
-        logLabel.setStyle("-fx-text-fill: white; -fx-font-size: 12;");
+        logLabel.setStyle("-fx-text-fill: #00ffff; -fx-font-size: 14px; -fx-font-weight: bold;");
+        logLabel.setOpacity(0);
+        
+        if (battleLogContainer.getChildren().size() > 3) {
+            battleLogContainer.getChildren().remove(0);
+        }
+        
         battleLogContainer.getChildren().add(logLabel);
+        
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline();
+        timeline.getKeyFrames().add(new javafx.animation.KeyFrame(
+            javafx.util.Duration.millis(300),
+            new javafx.animation.KeyValue(logLabel.opacityProperty(), 1.0)
+        ));
+        timeline.getKeyFrames().add(new javafx.animation.KeyFrame(
+            javafx.util.Duration.millis(2000),
+            new javafx.animation.KeyValue(logLabel.opacityProperty(), 1.0)
+        ));
+        timeline.getKeyFrames().add(new javafx.animation.KeyFrame(
+            javafx.util.Duration.millis(2500),
+            new javafx.animation.KeyValue(logLabel.opacityProperty(), 0.0)
+        ));
+        
+        timeline.setOnFinished(e -> {
+            if (battleLogContainer.getChildren().contains(logLabel)) {
+                battleLogContainer.getChildren().remove(logLabel);
+            }
+        });
+        
+        timeline.play();
     }
 
     @FXML
@@ -397,7 +464,7 @@ public class BattleController {
             controller.initData(currentUser);
             
             Stage stage = (Stage) battleLogContainer.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(SceneHelper.createStyledScene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }

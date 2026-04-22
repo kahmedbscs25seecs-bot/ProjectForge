@@ -25,6 +25,7 @@ public class User {
     private int currentHp;
     private LocalDateTime lastHealTime;
     private String defenseType;
+    private String rank;
 
     public User() {}
 
@@ -102,6 +103,16 @@ public class User {
 
     public String getDefenseType() { return defenseType; }
     public void setDefenseType(String defenseType) { this.defenseType = defenseType; }
+
+    public String getRank() { return rank; }
+    public void setRank(String rank) { this.rank = rank; }
+
+    public String getPlayerRank() {
+        if (rankPoints >= 1000) return "Platinum";
+        if (rankPoints >= 500) return "Gold";
+        if (rankPoints >= 200) return "Silver";
+        return "Bronze";
+    }
 
     public int getXpForNextLevel() {
         return level * 100;

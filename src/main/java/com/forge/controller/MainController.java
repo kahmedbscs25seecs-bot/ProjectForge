@@ -340,10 +340,10 @@ public class MainController {
     @FXML
     private void openBattle() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/battle.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/prepareForBattle.fxml"));
             Parent root = loader.load();
             
-            BattleController controller = loader.getController();
+            PrepareForBattleController controller = loader.getController();
             controller.initData(currentUser);
             
             Stage stage = (Stage) modeContainer.getScene().getWindow();

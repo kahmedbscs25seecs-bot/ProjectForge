@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.OpponentPreviewController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="6" bottom="6" left="12" right="12"/>
+            </padding>
+            
+            <VBox spacing="1">
+                <Label fx:id="usernameLabel" text="Username" styleClass="title-label" style="-fx-font-size: 14px;"/>
+                <Label fx:id="statsLabel" text="ATK: 50 | DEF: 35 | LCK: 5" styleClass="text-label" style="-fx-font-size: 11px;"/>
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="HP:" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                <Label fx:id="hpLabel" text="100/100" styleClass="green-text" style="-fx-font-size: 11px;"/>
+                <ProgressBar fx:id="hpBar" prefWidth="60" styleClass="hp-bar"/>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="6" alignment="CENTER">
+                <Label text="LVL" styleClass="text-label" style="-fx-font-size: 11px; -fx-text-fill: #00fff5;"/>
+                <Label fx:id="levelLabel" text="1" styleClass="gold-text" style="-fx-font-size: 12px;"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="TRUE" styleClass="scroll-pane">
+            <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="10" left="15" right="15" bottom="10"/>
+                </padding>
+                
+                <Label text="⚔️ VS OPPONENT ⚔️" styleClass="title-label" style="-fx-font-size: 18px;"/>
+                
+                <!-- Your Stats Summary - Compact -->
+                <HBox spacing="15" alignment="CENTER">
+                    <VBox spacing="1" alignment="CENTER">
+                        <Label text="YOU" styleClass="cyan-text" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="playerAtkLabel" text="ATK: 50" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                        <Label fx:id="playerDefLabel" text="DEF: 35" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                    
+                    <Label text="VS" styleClass="title-label" style="-fx-font-size: 14px;"/>
+                    
+                    <VBox spacing="1" alignment="CENTER">
+                        <Label text="OPPONENT" styleClass="magenta-text" style="-fx-font-size: 12px;"/>
+                        <Label fx:id="opponentAtkLabel" text="ATK: 50" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                        <Label fx:id="opponentDefLabel" text="DEF: 35" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Opponent Info - Compact -->
+                <HBox spacing="20" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;">
+                    <VBox spacing="2" alignment="CENTER">
+                        <Label fx:id="opponentNameLabel" text="🧙 Enemy" styleClass="gold-text" style="-fx-font-size: 14px;"/>
+                        <HBox spacing="8">
+                            <Label fx:id="opponentRankLabel" text="Bronze" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                            <Label text="|" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                            <Label fx:id="opponentLevelLabel" text="Lv.1" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+                
+                <!-- HP Comparison - Compact -->
+                <HBox spacing="8" alignment="CENTER">
+                    <Label text="HP:" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="opponentHpLabel" text="100/100" styleClass="green-text" style="-fx-font-size: 11px;"/>
+                    <ProgressBar fx:id="opponentHpBar" prefWidth="100" styleClass="hp-bar"/>
+                </HBox>
+                
+                <!-- Your Loadout - Very Compact -->
+                <VBox spacing="3" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 6; -fx-background-radius: 5;" prefWidth="350">
+                    <Label text="🎒 YOUR LOADOUT" styleClass="text-label" style="-fx-font-size: 11px; -fx-text-fill: #ffd700;"/>
+                    <Label fx:id="wandLabel" text="🪄 Wand: None" styleClass="text-label" style="-fx-font-size: 10px;" wrapText="true" prefWidth="330"/>
+                    <Label fx:id="attackSpellsLabel" text="⚔️ 5 Attacks" styleClass="text-label" style="-fx-font-size: 10px;" wrapText="true" prefWidth="330"/>
+                    <Label fx:id="defenseSpellsLabel" text="🛡️ 3 Defenses" styleClass="text-label" style="-fx-font-size: 10px;" wrapText="true" prefWidth="330"/>
+                </VBox>
+                
+                <!-- Buttons - Always Visible at Bottom -->
+                <HBox spacing="15" alignment="CENTER">
+                    <Button fx:id="startBattleBtn" text="⚔️ START" styleClass="pill-battle" prefWidth="140" onAction="#startBattle"/>
+                    <Button text="⬅ BACK" styleClass="pill-button" prefWidth="80" onAction="#goBack"/>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

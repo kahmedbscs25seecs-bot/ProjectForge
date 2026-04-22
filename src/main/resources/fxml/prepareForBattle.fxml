@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.forge.controller.PrepareForBattleController" styleClass="root">
+
+    <top>
+        <HBox styleClass="stats-panel" alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="6" bottom="6" left="12" right="12"/>
+            </padding>
+            
+            <VBox spacing="1">
+                <Label fx:id="usernameLabel" text="Username" styleClass="title-label" style="-fx-font-size: 14px;"/>
+                <Label fx:id="statsLabel" text="ATK: 50 | DEF: 35" styleClass="text-label" style="-fx-font-size: 11px;"/>
+            </VBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="HP:" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                <Label fx:id="hpLabel" text="100/100" styleClass="green-text" style="-fx-font-size: 11px;"/>
+                <ProgressBar fx:id="hpBar" prefWidth="60" styleClass="hp-bar"/>
+            </HBox>
+            
+            <Region HBox.hgrow="ALWAYS"/>
+            
+            <HBox spacing="6" alignment="CENTER">
+                <Label text="LVL" styleClass="text-label" style="-fx-font-size: 11px; -fx-text-fill: #00fff5;"/>
+                <Label fx:id="levelLabel" text="1" styleClass="gold-text" style="-fx-font-size: 12px;"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="TRUE" styleClass="scroll-pane">
+            <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+                <padding>
+                    <Insets top="10" left="15" right="15" bottom="10"/>
+                </padding>
+                
+                <Label text="⚔️ PREPARE FOR BATTLE ⚔️" styleClass="title-label" style="-fx-font-size: 18px;"/>
+                
+                <!-- Your Stats -->
+                <HBox spacing="20" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;">
+                    <VBox spacing="1" alignment="CENTER">
+                        <Label text="ATK" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                        <Label fx:id="atkLabel" text="50" styleClass="cyan-text" style="-fx-font-size: 14px;"/>
+                    </VBox>
+                    <VBox spacing="1" alignment="CENTER">
+                        <Label text="DEF" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                        <Label fx:id="defLabel" text="35" styleClass="cyan-text" style="-fx-font-size: 14px;"/>
+                    </VBox>
+                    <VBox spacing="1" alignment="CENTER">
+                        <Label text="LCK" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                        <Label fx:id="lckLabel" text="5" styleClass="cyan-text" style="-fx-font-size: 14px;"/>
+                    </VBox>
+                </HBox>
+                
+                <!-- Wand Selection -->
+                <VBox spacing="5" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
+                    <Label text="🪄 CHOOSE WAND" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                    <HBox fx:id="wandButtonsBox" spacing="5" alignment="CENTER"/>
+                </VBox>
+                
+                <!-- Equipment -->
+                <VBox spacing="5" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
+                    <Label text="🎒 EQUIPMENT" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                    <GridPane fx:id="equipmentGrid" hgap="8" vgap="5" alignment="CENTER"/>
+                </VBox>
+                
+                <!-- Attack Spells -->
+                <VBox spacing="5" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
+                    <HBox spacing="8" alignment="CENTER">
+                        <Label text="⚔️ ATTACK (5)" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                        <Label fx:id="attackCountLabel" text="0/5" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                    </HBox>
+                    <FlowPane fx:id="attackSpellsBox" hgap="5" vgap="5" alignment="CENTER"/>
+                </VBox>
+                
+                <!-- Defense Spells -->
+                <VBox spacing="5" alignment="CENTER" style="-fx-background-color: #1a1a2e; -fx-padding: 8; -fx-background-radius: 5;" prefWidth="350">
+                    <HBox spacing="8" alignment="CENTER">
+                        <Label text="🛡️ DEFENSE (3)" styleClass="text-label" style="-fx-font-size: 11px;"/>
+                        <Label fx:id="defenseCountLabel" text="0/3" styleClass="text-label" style="-fx-font-size: 10px;"/>
+                    </HBox>
+                    <FlowPane fx:id="defenseSpellsBox" hgap="5" vgap="5" alignment="CENTER"/>
+                </VBox>
+                
+                <!-- Proceed Button -->
+                <Button fx:id="proceedBtn" text="✅ READY FOR BATTLE" styleClass="pill-battle" prefWidth="180" onAction="#proceedToBattle" disable="true"/>
+                
+                <!-- Back Button -->
+                <Button text="⬅ BACK" styleClass="pill-button" onAction="#goBack"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -9,13 +9,17 @@ public class Item {
     private String spriteColor;
     private int unlockLevel;
     private int cost;
+    private int attackBonus;
+    private int defenseBonus;
+    private boolean isConsumable;
 
     public enum ItemType {
         COSMETIC, FUNCTIONAL
     }
     
     public enum EquipmentSlot {
-        HEAD, CHEST, GLOVES, LEGS, BOOTS, WEAPON, ACCESSORY
+        HELMET, BOOTS, GLOVES, ARMOR, ACCESSORY, CONSUMABLE, NONE,
+        HEAD, CHEST, LEGS, WEAPON
     }
 
     public Item() {}
@@ -51,4 +55,13 @@ public class Item {
 
     public int getCost() { return cost; }
     public void setCost(int cost) { this.cost = cost; }
+
+    public int getAttackBonus() { return attackBonus; }
+    public void setAttackBonus(int attackBonus) { this.attackBonus = attackBonus; }
+
+    public int getDefenseBonus() { return defenseBonus; }
+    public void setDefenseBonus(int defenseBonus) { this.defenseBonus = defenseBonus; }
+
+    public boolean isConsumable() { return isConsumable; }
+    public void setConsumable(boolean consumable) { isConsumable = consumable; }
 }

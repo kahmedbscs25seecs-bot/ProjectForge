@@ -2,6 +2,7 @@ package com.forge.service;
 
 import com.forge.model.User;
 import com.forge.repository.UserRepository;
+import com.forge.repository.WandRepository;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -9,15 +10,23 @@ import java.util.Optional;
 
 public class UserService {
     private final UserRepository userRepository;
+    private final WandRepository wandRepository;
 
     public UserService() {
         this.userRepository = new UserRepository();
+        this.wandRepository = new WandRepository();
     }
 
     public int register(String username, String email, String password) throws SQLException {
         String hashedPassword = hashPassword(password);
         User user = new User(username, email, hashedPassword);
-        return userRepository.create(user);
+        int userId = userRepository.create(user);
+        
+        if (userId > 0) {
+            wandRepository.equipWand(userId, 1);
+        }
+        
+        return userId;
     }
 
     public Optional<User> login(String username, String password) throws SQLException {

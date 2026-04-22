@@ -41,7 +41,7 @@
             <VBox spacing="10" alignment="CENTER" fx:id="potionsContainer"/>
             
             <Label text="YOUR POTIONS" styleClass="title-label"/>
-            <VBox spacing="8" alignment="Center" fx:id="userPotionsContainer"/>
+            <VBox spacing="8" alignment="CENTER" fx:id="userPotionsContainer"/>
             
             <Button text="FREE DAILY HEAL" styleClass="pill-battle" onAction="#useDailyHeal"/>
             <Label fx:id="dailyHealLabel" text="Available" styleClass="cyan-text"/>

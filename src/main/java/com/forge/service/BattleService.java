@@ -181,22 +181,62 @@ public class BattleService {
         if (userOpt.isEmpty()) return Optional.empty();
 
         User user = userOpt.get();
-        List<User> similarRankUsers = userRepository.findSimilarRank(userId, 50);
-
-        similarRankUsers.removeIf(u -> u.getId() == userId);
-        similarRankUsers.removeIf(u -> u.getCurrentHp() <= 0);
-
-        if (similarRankUsers.isEmpty()) {
-            List<User> topPlayers = userRepository.getTopPlayers(10);
-            topPlayers.removeIf(u -> u.getId() == userId);
-            topPlayers.removeIf(u -> u.getCurrentHp() <= 0);
-            if (!topPlayers.isEmpty()) {
-                return Optional.of(topPlayers.get(random.nextInt(topPlayers.size())));
+        
+        // Expand search range: start with ±50, expand by 25 each time up to ±200
+        for (int range = 50; range <= 200; range += 25) {
+            List<User> candidates = userRepository.findSimilarRank(userId, range);
+            candidates.removeIf(u -> u.getId() == userId);
+            candidates.removeIf(u -> u.getCurrentHp() <= 0);
+            
+            if (!candidates.isEmpty()) {
+                return Optional.of(candidates.get(random.nextInt(candidates.size())));
             }
-            return Optional.empty();
         }
-
-        return Optional.of(similarRankUsers.get(random.nextInt(similarRankUsers.size())));
+        
+        // If no real opponents found, create a bot
+        return Optional.of(createBotOpponent(user));
+    }
+    
+    private User createBotOpponent(User player) {
+        User bot = new User();
+        String[] botNames = {"Shadow_AI", "Storm_Bot", "Frost_Mage", "Dark_Knight", "Phoenix_AI"};
+        bot.setUsername(botNames[random.nextInt(botNames.length)] + "_" + System.currentTimeMillis() % 10000);
+        bot.setEmail("bot_" + System.currentTimeMillis() + "@forge.com");
+        bot.setPasswordHash("bot_password_hash");
+        
+        // Bot stats: similar to player (±10%)
+        int atkVariance = (int)(player.getAttack() * 0.1);
+        int defVariance = (int)(player.getDefense() * 0.1);
+        bot.setAttack(Math.max(10, player.getAttack() + random.nextInt(atkVariance * 2 + 1) - atkVariance));
+        bot.setDefense(Math.max(10, player.getDefense() + random.nextInt(defVariance * 2 + 1) - defVariance));
+        bot.setLuck(player.getLuck());
+        
+        // Bot level similar to player
+        bot.setLevel(player.getLevel());
+        
+        // Bot HP based on level + defense
+        bot.setMaxHp(50 + (player.getLevel() * 10) + bot.getDefense());
+        bot.setCurrentHp(bot.getMaxHp());
+        
+        // Bot rank similar to player
+        bot.setRankPoints(player.getRankPoints());
+        bot.setRank(player.getPlayerRank());
+        
+        // Default battle settings
+        bot.setDefenseType(DEFENSE_SHIELD);
+        bot.setCoins(0);
+        bot.setXp(0);
+        bot.setCurrentStreak(0);
+        bot.setLongestStreak(0);
+        
+        try {
+            int botId = userRepository.create(bot);
+            bot.setId(botId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return bot;
     }
 
     public List<Battle> getUserBattles(int userId) throws SQLException {

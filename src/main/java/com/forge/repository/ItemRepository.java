@@ -22,6 +22,24 @@ public class ItemRepository {
         return items;
     }
 
+    public List<Item> getAllItems() throws SQLException {
+        return findAll();
+    }
+
+    public List<Item> findBySlot(String slot) throws SQLException {
+        List<Item> items = new ArrayList<>();
+        String sql = "SELECT * FROM items WHERE slot = ?";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, slot);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                items.add(mapResultSetToItem(rs));
+            }
+        }
+        return items;
+    }
+
     public List<Item> findAvailableForLevel(int userLevel) throws SQLException {
         List<Item> items = new ArrayList<>();
         String sql = "SELECT * FROM items WHERE unlock_level <= ?";
@@ -64,6 +82,25 @@ public class ItemRepository {
         item.setSpriteColor(rs.getString("sprite_color"));
         item.setUnlockLevel(rs.getInt("unlock_level"));
         item.setCost(rs.getInt("cost"));
+        
+        try {
+            item.setAttackBonus(rs.getInt("attack_bonus"));
+        } catch (SQLException e) {
+            item.setAttackBonus(0);
+        }
+        
+        try {
+            item.setDefenseBonus(rs.getInt("defense_bonus"));
+        } catch (SQLException e) {
+            item.setDefenseBonus(0);
+        }
+        
+        try {
+            item.setConsumable(rs.getBoolean("is_consumable"));
+        } catch (SQLException e) {
+            item.setConsumable(false);
+        }
+        
         return item;
     }
 }

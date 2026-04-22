@@ -48,6 +48,20 @@ public class SpellRepository {
         return spells;
     }
 
+    public List<Spell> getSpellsByType(String type) throws SQLException {
+        String sql = "SELECT * FROM spells WHERE type = ? ORDER BY rarity";
+        List<Spell> spells = new ArrayList<>();
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, type);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                spells.add(mapResultSetToSpell(rs));
+            }
+        }
+        return spells;
+    }
+
     public Optional<Spell> findById(int id) throws SQLException {
         String sql = "SELECT * FROM spells WHERE id = ?";
         try (Connection conn = DatabaseUtil.getConnection();

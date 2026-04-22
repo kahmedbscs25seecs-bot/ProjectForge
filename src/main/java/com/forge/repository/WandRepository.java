@@ -62,6 +62,27 @@ public class WandRepository {
         }
     }
 
+    public List<Wand> getUserWands(int userId) throws SQLException {
+        String sql = "SELECT w.* FROM wands w " +
+                    "JOIN user_wand uw ON w.id = uw.wand_id " +
+                    "WHERE uw.user_id = ?";
+        List<Wand> wands = new ArrayList<>();
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                wands.add(mapResultSetToWand(rs));
+            }
+        }
+        return wands;
+    }
+
+    public Wand getUserWand(int userId) throws SQLException {
+        Optional<Wand> wand = findUserWand(userId);
+        return wand.orElse(null);
+    }
+
     private Wand mapResultSetToWand(ResultSet rs) throws SQLException {
         Wand wand = new Wand();
         wand.setId(rs.getInt("id"));
