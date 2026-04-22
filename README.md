@@ -34,20 +34,25 @@
 | **XP & Leveling** | Earn XP to level up (50 + level×10 XP per level) |
 | **Coin Economy** | Earn and spend coins in the shop |
 | **Streak Tracking** | Daily login streaks with bonus rewards |
-| **Inventory** | 7 equipment slots + shop system |
+| **Inventory** | 7 equipment slots + shop system with stat bonuses |
 | **Achievements** | Auto-unlocking badges based on progress |
-| **Battle System** | Async PvP with ranked matches |
+| **Battle System** | Prepare → Opponent Preview → Battle with loadout |
 | **AI Quests** | AI-generated custom quests using Ollama |
 
-### ⚔️ Battle System
+### 🛡️ Battle System (Enhanced)
 
 | Aspect | Details |
 |--------|---------|
-| **Attack Types** | Sword (constant damage), Wand (variable damage) |
-| **Defense Types** | Shield (fixed reduction), Wand (varies with attack) |
-| **Matchmaking** | Auto-match with similar rank players |
-| **Healing** | Potions (buy from shop) + Free daily heal |
-| **Points** | Win: +20 Attack / +25 Defense, Lose: -15 / -10 |
+| **PrepareForBattle** | Select wand, equipment, 5 attack + 3 defense spells |
+| **Opponent Preview** | View opponent stats before battle |
+| **Stat Scaling** | +2 ATK/DEF per player level |
+| **Equipment Bonuses** | Helmet, Armor, Gloves, Boots, Accessory with stats |
+| **Wand Bonuses** | Different wands have different ATK/DEF bonuses |
+| **Default Spells** | Auto-selected if user doesn't choose |
+| **Bot Opponent** | AI opponent when no real players available |
+| **Animated Battle Log** | Smooth fade in/out messages |
+
+---
 
 ### 🏆 Achievements System
 - First Quest - Complete your first quest
@@ -82,32 +87,11 @@
 
 | Component | Technology | Version |
 |-----------|------------|---------|
-| **Language** | Java | 17 |
+| **Language** | Java | 17+ |
 | **GUI Framework** | JavaFX | 26 |
 | **Database** | MySQL | 8.x |
 | **AI (Quest Gen)** | Ollama + Llama3 | Local |
 | **Build Tool** | Maven | 3.x |
-| **Logging** | SLF4J | 2.0.9 |
-| **JSON** | Jackson | 2.16.1 |
-
----
-
-## 🗄️ Database Schema
-
-### Core Tables
-- **users** - User accounts, stats, battle info
-- **modes** - Productivity categories
-- **quests** - Available quests per mode
-- **user_progress** - Active/completed quests
-- **items** - Shop inventory items
-- **user_inventory** - User owned items
-- **achievements** - Achievement definitions
-
-### Battle Tables
-- **battles** - Battle records
-- **battle_actions** - Turn-by-turn actions
-- **healing_items** - Potion catalog
-- **user_healing_items** - User owned potions
 
 ---
 
@@ -148,19 +132,24 @@
    cd ProjectForge
    ```
 
-2. **Open in IntelliJ IDEA**
-   - File → Open → Select `D:\AntiGravity\my-new-project`
+2. **Build with Maven**
+   ```bash
+   mvn clean compile
+   ```
 
-3. **Create Run Configuration**
+3. **Run with Maven**
+   ```bash
+   mvn javafx:run
+   ```
+   
+   Or open in IntelliJ IDEA:
+   - File → Open → Select project folder
    - Main class: `com.forge.Main`
-   - VM options: 
-     ```
-     --module-path "C:\Users\khawa\Downloads\javafx-sdk-26\lib" --add-modules javafx.controls,javafx.fxml
-     ```
+   - VM options: `--module-path "path/to/javafx-sdk-26/lib" --add-modules javafx.controls,javafx.fxml`
 
-4. **Run the application**
-   - The database tables are auto-created on first run
-   - Default data is seeded automatically
+4. **First Run**
+   - Database tables auto-create on first run
+   - Default data seeded automatically
 
 ---
 
@@ -170,32 +159,34 @@
 src/main/java/com/forge/
 ├── Main.java                    # Application entry point
 ├── model/                     # Data models
-│   ├── User.java              # User with XP/level/stats/battle
+│   ├── User.java              # User with XP/level/stats/rank
 │   ├── Mode.java             # Game modes
 │   ├── Quest.java            # Quests with rewards
-│   ├── Item.java             # Inventory items
+│   ├── Item.java             # Inventory items with stat bonuses
+│   ├── Spell.java           # Battle spells
+│   ├── Wand.java            # Wands with stat bonuses
 │   ├── Achievement.java     # Achievements
 │   ├── Battle.java          # Battle records
 │   ├── BattleAction.java    # Turn actions
 │   └── HealingItem.java      # Potions
 ├── repository/               # Database access layer
-│   ├── UserRepository.java
-│   ├── QuestRepository.java
-│   ├── BattleRepository.java
-│   └── ... (12 more)
 ├── service/                 # Business logic
 │   ├── UserService.java
 │   ├── QuestService.java
 │   ├── BattleService.java
-│   ├── AIQuestService.java
-│   └── ... (6 more)
+│   ├── HarryPotterBattleService.java
+│   ├── StatCalculationService.java
+│   └── AIQuestService.java
 ├── controller/             # JavaFX UI controllers
 │   ├── LoginController.java
 │   ├── MainController.java
 │   ├── BattleController.java
-│   └── ... (14 more)
+│   ├── PrepareForBattleController.java
+│   ├── OpponentPreviewController.java
+│   └── ...
 └── util/                   # Utilities
     ├── DatabaseUtil.java
+    ├── SceneHelper.java
     └── DragUtil.java
 
 src/main/resources/
@@ -203,7 +194,9 @@ src/main/resources/
 │   ├── login.fxml
 │   ├── main.fxml
 │   ├── battle.fxml
-│   └── ... (12 more)
+│   ├── prepareForBattle.fxml
+│   ├── opponentPreview.fxml
+│   └── ...
 └── css/
     └── styles.css          # Cyberpunk theme
 ```
@@ -225,19 +218,18 @@ src/main/resources/
 - Click "START QUEST" to begin a quest
 - Do the task in real life
 - Click "COMPLETE" to earn rewards
-- Or click "ABANDON" (with coin penalty)
 
-### 4. Progress & Level Up
-- Earn XP to level up
+### 4. Battle System (New!)
+- Click **Battle** in the header
+- **PrepareForBattle**: Select wand + 5 attack + 3 defense spells (or use defaults)
+- **OpponentPreview**: Review opponent stats
+- **Battle**: Fight and win!
+
+### 5. Progress & Level Up
+- Earn XP to level up (+2 ATK/DEF per level)
 - Collect coins from quests
-- Buy items in Inventory shop
+- Buy equipment with stat bonuses
 - Unlock achievements
-
-### 5. Battle System
-- Click "Battle" in the header
-- Click "FIND OPPONENT" to find a similar-ranked player
-- Choose SWORD (constant) or WAND (variable) attack
-- Win to gain rank points!
 
 ### 6. Heal Up
 - Buy potions in the Heal Shop
@@ -251,8 +243,9 @@ src/main/resources/
 - **Pill-Shaped Buttons** - Modern rounded navigation
 - **Drag-to-Move Window** - Custom title bar
 - **Animated Splash Screen** - Loading animation
-- **Character Display** - Colored equipment visualization
+- **Equipment Visualization** - Visual character display
 - **Health Bars** - Visual HP and XP tracking
+- **Animated Battle Log** - Smooth fade messages
 
 ---
 
@@ -269,13 +262,14 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 | **v1.0.0** | Initial release with core features |
 | **v1.1.0** | Added Battle System, Healing Shop, Leaderboard |
 | **v1.2.0** | Added AI Quest Generation (Ollama), Pill Button UI |
+| **v1.3.0** | Enhanced Battle: PrepareForBattle, OpponentPreview, Stat Scaling, Bot Opponents |
 
 ---
 
 ## ⚠️ Troubleshooting
 
 ### "Module javafx.controls not found"
-- Update JavaFX SDK path in Run Configuration
+- Update JavaFX SDK path in VM options
 - Ensure path points to the `lib` folder inside the SDK
 
 ### "Access denied for user 'root'"
@@ -283,19 +277,18 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Default: Seecs@123
 
 ### Compilation errors
-- In IntelliJ: File → Invalidate Caches → Invalidate and Restart
-- Then: Build → Rebuild Project
+- Run: `mvn clean compile`
+- In IntelliJ: File → Invalidate Caches → Restart
 
 ### Database schema issues
-- Run: `DROP DATABASE forge;` in MySQL
-- Restart the app to recreate tables
+- The app auto-creates tables on first run
+- Restart the app to recreate if needed
 
 ---
 
 ## 📧 Contact
 
 - **GitHub**: https://github.com/kahmedbscs25seecs-bot/ProjectForge
-- **Email**: Contact through GitHub
 
 ---
 
